@@ -1,0 +1,39 @@
+<div class="content">
+  <div class="tw-text-3xl tw-mb-8">Join <img src="assets/icons/dcf.png" alt="DCF" class="tw-h-12 tw-inline-block">, it's free</div>
+
+  <form class="tw-flex tw-flex-col" [formGroup]="signup">
+    <mat-form-field appearance="outline">
+      <mat-label>Email Address</mat-label>
+      <input matInput formControlName="email"/>
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+      <mat-label>Full Name</mat-label>
+      <input matInput formControlName="fullname"/>
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+      <mat-label>Join As</mat-label>
+      <mat-select formControlName="access">
+        <mat-option value="user">User</mat-option>
+        <mat-option value="counselor">Counselor</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <div class="tw-flex tw-w-full">
+      <mat-form-field appearance="outline" class="tw-mr-4 tw-flex-1">
+        <mat-label>Password</mat-label>
+        <input matInput formControlName="password"/>
+      </mat-form-field>
+      <mat-form-field appearance="outline" class="tw-flex-1">
+        <mat-label>Confirm Password</mat-label>
+        <input matInput formControlName="confirm"/>
+      </mat-form-field>
+    </div>
+    <mat-hint class="tw-mb-6">
+      Make sure it's at least 15 characters OR at least 8 characters including a number and a lowercase letter.
+    </mat-hint>
+    <button mat-button class="submit">Sign up for DCF</button>
+    <mat-hint class="tw-mt-6">
+      By clicking “Sign up for DCF”, you agree to our Terms of Service and Privacy Statement. We’ll occasionally send you account related emails.
+    </mat-hint>
+  </form>
+</div>
