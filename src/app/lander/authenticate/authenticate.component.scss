@@ -1,0 +1,65 @@
+$form_width: 440px;
+$form_height: 300px;
+
+:host {
+  height: 100%;
+}
+
+mat-progress-bar {
+  min-height: 4px;
+}
+
+.container {
+  min-width: $form_width;
+  min-height: $form_height;
+}
+.authenticate {
+  width: $form_width;
+  height: $form_height;
+
+  display: flex;
+  overflow: hidden;
+}
+.title {
+  color: #455a64BB;
+  margin: 0;
+}
+.signin, .recover {
+
+  > mat-form-field {
+    display: flex;
+    flex-flow: column;
+    align-items: stretch;
+
+    margin: 16px 0;
+  }
+}
+.form-controls {
+  > p {
+    font-size: 12px;
+    cursor: pointer;
+
+    margin: 0;
+    color: blue;
+  }
+  > button {
+    background-color: #455a64;
+    color: white;
+  }
+}
+.instructions {
+  color: #3295A888;
+  font-size: 12px;
+}
+
+/*
+let us create two style classes for dynamic motion tabs in the user interface
+ */
+.tab-1 {
+  transition-duration: 0.5s;
+  transform: translate(0, 0);
+}
+.tab-2 {
+  transition-duration: 0.5s;
+  transform: translate(-$form_width, 0);
+}

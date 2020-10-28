@@ -1,0 +1,15 @@
+@import '../authenticate.component.scss';
+
+.container{
+  min-width: $form_width;
+  min-height: $form_height;
+
+  display: flex;
+  flex-flow: column;
+
+  justify-content: space-between;
+}
+.progress-container {
+  min-height: 4px;
+}
+

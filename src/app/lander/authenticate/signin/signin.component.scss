@@ -1,0 +1,19 @@
+@import '../authenticate.component.scss';
+
+.progress-container {
+  min-height: 4px;
+}
+.visibility {
+  transition-duration: 0.25s;
+  cursor: pointer;
+}
+
+/*
+We will keep these classes for dynamic toggling
+ */
+.show {
+  color: #455a64;
+}
+.hide {
+  color: #00000022;
+}

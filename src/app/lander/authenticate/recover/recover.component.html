@@ -1,0 +1,55 @@
+<div class="tw-flex tw-flex-col tw-justify-between container">
+  <div class="progress-container"><mat-progress-bar *ngIf="loading | async" mode="indeterminate" [color]="color"></mat-progress-bar></div>
+
+  <!--
+  Now let us begin setting up the inputs of the form and bind it into the frame. we will also have to put the logo
+  in and the title of the form so that the user is able to tell from just the title what they will need to do.
+  finally we will also need to add in google and facebook sign in so that the user is able to use those platforms
+  to gain access to the system.
+  -->
+  <div class="tw-flex tw-justify-center tw-items-center">
+    <img src="assets/icons/dcf.png" alt="DCF" class="tw-h-12 tw-mr-8"/>
+    <p class="mat-h1"> account recovery</p>
+  </div>
+
+  <!--
+  Now let us start by defining one input field and separating it into its own component so that we are able to reuse
+  it. With that said we will make a username input field and modify the configurability so that we can have a password
+  configurability.
+  -->
+  <form class="tw-mx-16 tw-justify-around recover" [formGroup]="recoverform" (ngSubmit)="recovery()">
+    <p class="instructions">
+      sorry about your password, to recover your account enter your username and we will reset your account and send you an email with your recovery link to allow you to change it to a new one.
+    </p>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Email Address</mat-label>
+      <input matInput [errorStateMatcher]="matcher" formControlName="username"
+             placeholder="username@example.com">
+      <mat-hint>please enter your e-mail address.</mat-hint>
+      <mat-error *ngIf="recoverform.get('username').hasError('username') && !recoverform.get('username').hasError('required')">
+        Please enter a valid e-mail address
+      </mat-error>
+      <mat-error *ngIf="recoverform.get('username').hasError('required')">
+        E-mail address is <strong>required</strong>
+      </mat-error>
+    </mat-form-field>
+
+    <!--
+    Here we will have the error messages displayed
+    -->
+    <div class="message">
+      <p *ngIf="(recover | async)"
+         class="success">{{(recover | async).message}}</p>
+      <p *ngIf="(error | async)"
+         class="error">{{(error | async).message}}</p>
+    </div>
+
+    <div class="tw-flex tw-justify-between tw-items-center form-controls">
+      <p (click)="tabbed.emit()">go back &amp; sign in</p>
+
+      <button mat-button [disabled]="!recoverform.valid" type="submit">recover</button>
+    </div>
+
+  </form>
+</div>

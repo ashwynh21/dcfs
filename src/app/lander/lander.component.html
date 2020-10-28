@@ -11,18 +11,4 @@ This is the navigation bar down here...
 -->
 <app-navigation class="tw-w-full tw-h-16 tw-shadow tw-flex tw-justify-between tw-items-center navigation"></app-navigation>
 
-<!--
-Here we will put the content of the page...we will flex it row wise
--->
-<div class="tw-flex tw-flex-1">
-  <!--
-  So in here we are going to have two panels to display a splash jumbo as well as the actual joining dialog...
-  -->
-  <app-left class="tw-flex tw-flex-col tw-flex-1 tw-justify-center tw-items-center"></app-left>
-  <app-join class="tw-flex tw-flex-col tw-flex-1 tw-justify-center tw-items-center"></app-join>
-</div>
-
-<!--
-Here we will have the footer of the page
--->
-<div></div>
+<router-outlet></router-outlet>

@@ -1,0 +1,36 @@
+<div class="tw-w-full tw-p-12 tw-pb-2 tw-flex content">
+  <div>
+    <img src="assets/icons/dcf_white.png" alt="DCF" class="tw-h-16"/>
+  </div>
+  <div></div>
+  <div></div>
+  <div>
+    <p>Contact</p>
+    <p>About</p>
+  </div>
+  <div>
+    <!--
+    Here we put a contact us form
+    -->
+    <p class="tw-text-2xl">Send us an e-mail</p>
+    <form [formGroup]="form" class="tw-flex tw-flex-col">
+      <mat-form-field appearance="outline">
+        <mat-label>Email Address</mat-label>
+        <input type="email" matInput formControlName="email" required/>
+      </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label>Full Name</mat-label>
+        <input matInput formControlName="fullname" required/>
+      </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label>Message</mat-label>
+        <textarea matInput formControlName="message" maxlength="256"></textarea>
+      </mat-form-field>
+
+      <button mat-button class="submit">Send</button>
+    </form>
+  </div>
+</div>
+<div class="tw-w-full tw-px-12 copyright">
+  <p>© 2020 DCFS.</p>
+</div>

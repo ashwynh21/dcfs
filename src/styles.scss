@@ -37,7 +37,7 @@ $custom-typography: mat-typography-config($font-family: $font);
 @include angular-material-theme($dcfs-theme);
 @include angular-material-typography($custom-typography);
 
-html, body { height: 100%; }
+html, body { height: 100%; overflow: hidden; }
 .mat-dialog-container {
   padding: 0 !important;
 }

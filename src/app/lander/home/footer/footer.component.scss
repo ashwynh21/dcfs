@@ -1,0 +1,22 @@
+
+:host {
+  > div {
+    background: #455a64;
+    color: white;
+  }
+}
+.content {
+  > div {
+    flex: 1;
+    > p {
+      cursor: pointer;
+    }
+  }
+}
+.submit {
+  background: white;
+  color: #455a64;
+}
+.copyright {
+  padding-bottom: 2px;
+}

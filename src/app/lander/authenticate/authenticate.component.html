@@ -1,0 +1,18 @@
+
+<div class="tw-flex tw-items-center tw-justify-center tw-w-screen tw-h-full tw-overflow-hidden tw-flex-col">
+  <!--
+  Down here let us setup a hidden tab to be able to navigate to the password recovery form.
+  -->
+  <div class="authenticate">
+    <app-signin [ngClass]="style" [color]="color" (tabbed)="tabbing(0)"></app-signin>
+    <app-recover [ngClass]="style" [color]="color" (tabbed)="tabbing(1)"></app-recover>
+  </div>
+
+  <!--
+  let also add some fine print here at the bottom for any links like in this case the privacy policy as well
+  as the forgot password link.
+  -->
+  <div class="tw-flex tw-items-stretch tw-justify-between print tw-w-1/2 tw-my-12 tw-opacity-25 tw-text-center">
+    <p>DCF is a secure platform for legal documentation as financial documentation. Make sure that your password is not compromised and is always secure. DCF will not be held responsible for compromised data, for more information please see our privacy policy and term & conditions of use.</p>
+  </div>
+</div>

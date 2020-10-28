@@ -15,7 +15,7 @@ export class JoinComponent implements OnInit {
       fullname: ['', Validators.required],
       access: ['', Validators.required],
       password: ['', Validators.required],
-      confirm: ['', Validators.required]
+      confirm: ['', [Validators.required]]
     });
   }
 

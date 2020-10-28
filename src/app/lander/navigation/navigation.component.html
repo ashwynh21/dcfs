@@ -10,18 +10,19 @@ Here we have the logo to the far left
   <!--
   Here we should have a small annotation of navigation to illustrate the design better
   -->
-  <p class="tw-font-thin tw-text-base dept">Dept Counselling</p>
+  <p class="tw-font-thin tw-text-base dept">Debt Counselling</p>
 </div>
 <!--
 Then the menu to the far right
 -->
 <div class="tw-flex tw-items-center tw-justify-between tw-mx-4 menu">
-
+  <!--
   <app-search class="tw-flex tw-items-center tw-mx-8"></app-search>
+  -->
   <!--
   Then down here we have the rest of the menu
   -->
   <button mat-button>Contact</button>
   <button mat-button>About</button>
-  <button mat-button class="join">Log in</button>
+  <button mat-button class="join" [routerLink]="toggle ? '' : 'authenticate'" (click)="toggle = !toggle">{{toggle ? 'Home' : 'Log in'}}</button>
 </div>

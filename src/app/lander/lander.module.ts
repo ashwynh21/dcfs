@@ -10,14 +10,33 @@ import { MatIconModule } from "@angular/material/icon";
 import { MatFormFieldModule } from "@angular/material/form-field";
 import { MatInputModule } from "@angular/material/input";
 import { SearchComponent } from './search/search.component';
-import { LeftComponent } from './left/left.component';
-import { JoinComponent } from './join/join.component';
+import { LeftComponent } from './home/left/left.component';
+import { JoinComponent } from './home/join/join.component';
 import { NavigationComponent } from './navigation/navigation.component';
 import { MatSelectModule } from "@angular/material/select";
 import { ReactiveFormsModule } from "@angular/forms";
+import { FooterComponent } from './home/footer/footer.component';
+import { AboutComponent } from './home/about/about.component';
+import { HomeComponent } from './home/home.component';
+import { AuthenticateComponent } from './authenticate/authenticate.component';
+import { SigninComponent } from "./authenticate/signin/signin.component";
+import { RecoverComponent } from "./authenticate/recover/recover.component";
+import { MatProgressBarModule } from "@angular/material/progress-bar";
 
 @NgModule({
-  declarations: [LanderComponent, SearchComponent, LeftComponent, JoinComponent, NavigationComponent],
+  declarations: [
+    LanderComponent,
+    SearchComponent,
+    LeftComponent,
+    JoinComponent,
+    NavigationComponent,
+    FooterComponent,
+    AboutComponent,
+    HomeComponent,
+    AuthenticateComponent,
+    SigninComponent,
+    RecoverComponent
+  ],
   imports: [
     CommonModule,
 
@@ -28,7 +47,8 @@ import { ReactiveFormsModule } from "@angular/forms";
     MatFormFieldModule,
     MatInputModule,
     MatSelectModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    MatProgressBarModule
   ]
 })
 export class LanderModule { }
