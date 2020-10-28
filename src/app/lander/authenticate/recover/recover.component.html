@@ -1,4 +1,4 @@
-<div class="tw-flex tw-flex-col tw-justify-between container">
+<div class="tw-flex tw-flex-col container">
   <div class="progress-container"><mat-progress-bar *ngIf="loading | async" mode="indeterminate" [color]="color"></mat-progress-bar></div>
 
   <!--
@@ -7,9 +7,9 @@
   finally we will also need to add in google and facebook sign in so that the user is able to use those platforms
   to gain access to the system.
   -->
-  <div class="tw-flex tw-justify-center tw-items-center">
+  <div class="tw-flex tw-justify-center tw-mt-6 tw-items-center">
     <img src="assets/icons/dcf.png" alt="DCF" class="tw-h-12 tw-mr-8"/>
-    <p class="mat-h1"> account recovery</p>
+    <p class="mat-h1 title"> account recovery</p>
   </div>
 
   <!--
@@ -35,21 +35,18 @@
       </mat-error>
     </mat-form-field>
 
-    <!--
-    Here we will have the error messages displayed
-    -->
-    <div class="message">
-      <p *ngIf="(recover | async)"
-         class="success">{{(recover | async).message}}</p>
-      <p *ngIf="(error | async)"
-         class="error">{{(error | async).message}}</p>
-    </div>
-
     <div class="tw-flex tw-justify-between tw-items-center form-controls">
       <p (click)="tabbed.emit()">go back &amp; sign in</p>
 
       <button mat-button [disabled]="!recoverform.valid" type="submit">recover</button>
     </div>
 
+    <!--
+    Here we will have the error messages displayed
+    -->
+    <div class="tw-mt-6">
+      <p  *ngIf="(recover | async)" class="message">{{(recover | async).message}}</p>
+      <mat-error class="message" *ngIf="(error | async)">{{(error | async).message}}</mat-error>
+    </div>
   </form>
 </div>

@@ -1,4 +1,4 @@
 {
-  "root": "https://localhost:4000/",
-  "socket": "https://localhost:4000/"
+  "root": "http://localhost:4000/",
+  "socket": "http://localhost:4000/"
 }

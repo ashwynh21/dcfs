@@ -9,4 +9,12 @@ export default [
       )
       .then(lander => lander.LanderModule)
   },
+  {
+    path: 'dashboard',
+    loadChildren: () => import(
+      /* webpackChunkName: "dashboard" */
+      './dashboard/dashboard.module'
+      )
+      .then(dashboard => dashboard.DashboardModule)
+  }
 ] as Routes;

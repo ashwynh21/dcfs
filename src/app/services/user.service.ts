@@ -51,9 +51,7 @@ export class UserService {
   }
 
   public create(data: UserModel): Observable<Response> {
-    return this.http.post(`${configuration.root}${this.name}`, {
-      ...data
-    }, {
+    return this.http.post(`${configuration.root}${this.name}`, data, {
       headers: {
         'Content-Type': 'application/json'
       }

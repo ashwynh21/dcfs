@@ -1,5 +1,5 @@
 $form_width: 440px;
-$form_height: 300px;
+$form_height: 360px;
 
 :host {
   height: 100%;
@@ -49,7 +49,10 @@ mat-progress-bar {
 }
 .instructions {
   color: #3295A888;
-  font-size: 12px;
+  font-size: 11px;
+}
+.message {
+  font-size: 8pt;
 }
 
 /*

@@ -1,4 +1,4 @@
-<div class="tw-flex tw-flex-col tw-justify-between container">
+<div class="tw-flex tw-flex-col container">
   <!--
    so in here let us setup a loader or progress indicator and the form in general. let us make the loader into its
    own component.
@@ -10,7 +10,7 @@
   finally we will also need to add in google and facebook sign in so that the user is able to use those platforms
   to gain access to the system.
   -->
-  <div class="tw-flex tw-justify-center tw-items-center">
+  <div class="tw-flex tw-justify-center tw-mt-6 tw-items-center">
     <img src="assets/icons/dcf.png" alt="DCF" class="tw-h-12 tw-mr-8"/>
     <p class="mat-h1 title"> sign in</p>
   </div>
@@ -53,10 +53,6 @@
     </mat-form-field>
 
     <!--
-    Here we will have the error messages displayed
-    -->
-    <mat-error>{{(error | async)?.message}}</mat-error>
-    <!--
     let put the controls in a row here
     -->
     <div class="tw-flex tw-justify-between tw-items-center form-controls">
@@ -64,5 +60,9 @@
 
       <button mat-button [disabled]="!signinform.valid" type="submit">sign in</button>
     </div>
+    <!--
+    Here we will have the error messages displayed
+    -->
+    <mat-error class="tw-mt-6 message">{{(error | async)?.message}}</mat-error>
   </form>
 </div>

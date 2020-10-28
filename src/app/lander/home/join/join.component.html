@@ -1,10 +1,12 @@
 <div class="content">
-  <div class="tw-text-3xl tw-mb-8">Join <img src="assets/icons/dcf.png" alt="DCF" class="tw-h-12 tw-inline-block">, it's free</div>
+  <div class="tw-mb-6 progress"><mat-progress-bar *ngIf="loading | async" mode="indeterminate"></mat-progress-bar></div>
 
-  <form class="tw-flex tw-flex-col" [formGroup]="signup">
+  <div class="tw-text-3xl tw-mb-6">Join <img src="assets/icons/dcf.png" alt="DCF" class="tw-h-12 tw-inline-block">, it's free</div>
+
+  <form class="tw-flex tw-flex-col" [formGroup]="signup" (ngSubmit)="create()">
     <mat-form-field appearance="outline">
       <mat-label>Email Address</mat-label>
-      <input matInput formControlName="email" class="font" type="email" required/>
+      <input matInput formControlName="username" class="font" type="email" required/>
     </mat-form-field>
     <mat-form-field appearance="outline">
       <mat-label>Full Name</mat-label>
@@ -28,12 +30,13 @@
         <input matInput formControlName="confirm" class="font" type="password" required/>
       </mat-form-field>
     </div>
-    <mat-hint class="tw-mb-6">
+    <mat-hint class="tw-mb-4 size">
       Make sure it's at least 15 characters OR at least 8 characters including a number and a lowercase letter.
     </mat-hint>
-    <button mat-button class="submit">Sign up for DCF</button>
-    <mat-hint class="tw-mt-6">
+    <button [disabled]="!signup.valid" mat-button class="submit">Sign up for DCF</button>
+    <mat-hint class="tw-mt-4 size">
       By clicking “Sign up for DCF”, you agree to our Terms of Service and Privacy Statement. We’ll occasionally send you account related emails.
     </mat-hint>
+    <div class="error"><mat-error class="tw-mt-2 size" *ngIf="error | async">{{(error | async).message}}</mat-error></div>
   </form>
 </div>

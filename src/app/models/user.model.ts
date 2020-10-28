@@ -3,6 +3,7 @@ export interface UserModel {
 
   username: string;
   password: string;
+  fullname: string;
 
   access: Array<string>;
 

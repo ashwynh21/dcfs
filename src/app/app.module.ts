@@ -18,6 +18,7 @@ import routes from './app.routes';
 import { HttpClientModule } from '@angular/common/http';
 import { HashLocationStrategy, LocationStrategy } from '@angular/common';
 import { ServicesModule } from './services/services.module';
+import { CreateEffect } from "./store/user/create";
 
 @NgModule({
   declarations: [
@@ -39,6 +40,7 @@ import { ServicesModule } from './services/services.module';
       AuthenticateEffect,
       RecoverEffect,
       RefreshEffect,
+      CreateEffect,
     ]),
 
     RouterModule.forRoot(routes),
