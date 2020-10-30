@@ -10,7 +10,6 @@ export class FinanceComponent implements OnInit {
   emitter: EventEmitter<number>;
 
   constructor() {
-
     this.emitter = new EventEmitter<number>();
   }
 

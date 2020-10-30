@@ -1,1 +1,36 @@
-<p>commitment works!</p>
+
+<div class="tw-flex-1 tw-mx-48 tw-my-16">
+  <p class="mat-h1">Commitments & Debts</p>
+
+  <p class="description">
+    Please list any commitments & debts that you may have, specifying the creditor's name, the account number, the outstanding amount (SZA) and finally, your monthly installment to the commitment
+  </p>
+
+  <form class="tw-flex tw-items-start">
+    <mat-form-field appearance="outline">
+      <mat-label>Name</mat-label>
+      <input matInput/>
+    </mat-form-field>
+    <mat-form-field appearance="outline" class="tw-ml-4">
+      <mat-label>Account Number</mat-label>
+      <input matInput/>
+    </mat-form-field>
+    <mat-form-field appearance="outline" class="tw-ml-4">
+      <mat-label>Outstanding (SZA)</mat-label>
+      <input matInput type="number"/>
+    </mat-form-field>
+    <mat-form-field appearance="outline" class="tw-ml-4">
+      <mat-label>Monthly Commitment (SZA)</mat-label>
+      <input matInput type="number"/>
+    </mat-form-field>
+
+    <button mat-icon-button class="update"><mat-icon>add</mat-icon></button>
+  </form>
+
+  <div class="tw-flex tw-justify-between tw-mt-10">
+    <mat-progress-spinner *ngIf="false" mode="indeterminate" diameter="28"></mat-progress-spinner>
+    <div></div>
+
+    <button mat-button class="update" (click)="$event.preventDefault();">finish</button>
+  </div>
+</div>
