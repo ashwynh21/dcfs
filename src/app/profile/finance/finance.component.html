@@ -1,0 +1,56 @@
+
+<div class="tw-flex-1 tw-mx-48 tw-my-16">
+  <p class="mat-h1">Income &amp; Expenses</p>
+
+  <p class="description">
+    Please enter details on your gross income as well as upload a document of your income statement. This information
+    will be used to determine your indebtment once the necessary information has been collected.
+  </p>
+
+  <form>
+    <div class="tw-flex tw-items-center tw-mt-6">
+      <mat-form-field appearance="outline">
+        <mat-label>Gross Income (SZA)</mat-label>
+        <input matInput type="number"/>
+
+        <mat-hint>Please enter your gross monthly income</mat-hint>
+      </mat-form-field>
+      <div class="tw-flex tw-items-center tw-ml-8 tw-p-2 upload" (click)="file.click();" tabindex="0" matRipple>
+        <input hidden type="file" #file/>
+        <mat-icon>publish</mat-icon>
+        <mat-label>PDF of Income Statement</mat-label>
+      </div>
+    </div>
+    <mat-form-field appearance="outline" class="tw-mt-4 tw-w-1/2">
+      <mat-label>Monthly Deductions (SZA)</mat-label>
+      <input matInput type="number"/>
+
+      <mat-hint>Please enter your monthly deductions i.e. TAX, ENPF</mat-hint>
+    </mat-form-field>
+  </form>
+
+  <p class="description top">
+    Please enter information about any monthly expense that you have, which may entail expenses such as rent, water and
+    electricity. Please also provide
+  </p>
+
+  <form class="tw-flex tw-items-start">
+    <mat-form-field appearance="outline">
+      <mat-label>Name</mat-label>
+      <input matInput/>
+    </mat-form-field>
+    <mat-form-field appearance="outline" class="tw-ml-4">
+      <mat-label>Amount (SZA)</mat-label>
+      <input matInput type="number"/>
+    </mat-form-field>
+
+    <button mat-icon-button class="update"><mat-icon>add</mat-icon></button>
+  </form>
+
+  <div class="tw-flex tw-justify-between tw-mt-10">
+    <mat-progress-spinner *ngIf="false" mode="indeterminate" diameter="28"></mat-progress-spinner>
+    <div></div>
+
+    <button mat-button class="update" (click)="$event.preventDefault(); emitter.emit(3)">update</button>
+  </div>
+</div>

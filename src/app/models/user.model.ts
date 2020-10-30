@@ -6,6 +6,46 @@ export interface UserModel {
   fullname: string;
 
   access: Array<string>;
+  /*
+  * we require more properties to expand on users. it is required that we
+  * control the access of the users using the string array above but it is also
+  * required that we collect information to qualify the user against the
+  * access that they have been granted...
+  * */
+  bio?: {
+    pin: string;
+    marital?: {
+      fullname: string;
+      pin: string;
+      dependents: number;
+    },
+    physical: string;
+    postal: {
+      address: string;
+      code: string;
+    };
+    mobile: string;
+  };
+  employment?: {
+    name: string;
+    postal: {
+      address: string;
+      code: string;
+    }
+  };
+  income?: {
+    statement: string;
+    gross: number;
+    deductions: number;
+    total: number;
+  }
+  expenses?: { name: string; amount: number }[];
+  debt?: {
+    name: string;
+    account: string;
+    outstanding: number;
+    monthly: number;
+  }[];
 
   created: Date;
   updated: Date;

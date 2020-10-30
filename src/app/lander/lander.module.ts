@@ -22,6 +22,8 @@ import { AuthenticateComponent } from './authenticate/authenticate.component';
 import { SigninComponent } from "./authenticate/signin/signin.component";
 import { RecoverComponent } from "./authenticate/recover/recover.component";
 import { MatProgressBarModule } from "@angular/material/progress-bar";
+import { AlreadyComponent } from "./authenticate/already/already.component";
+import { MatDialogModule } from "@angular/material/dialog";
 
 @NgModule({
   declarations: [
@@ -35,7 +37,8 @@ import { MatProgressBarModule } from "@angular/material/progress-bar";
     HomeComponent,
     AuthenticateComponent,
     SigninComponent,
-    RecoverComponent
+    RecoverComponent,
+    AlreadyComponent,
   ],
   imports: [
     CommonModule,
@@ -48,7 +51,8 @@ import { MatProgressBarModule } from "@angular/material/progress-bar";
     MatInputModule,
     MatSelectModule,
     ReactiveFormsModule,
-    MatProgressBarModule
+    MatProgressBarModule,
+    MatDialogModule
   ]
 })
 export class LanderModule { }

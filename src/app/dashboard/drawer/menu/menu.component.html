@@ -1,0 +1,19 @@
+
+<div class="user tw-flex tw-flex-col tw-items-stretch tw-my-4">
+
+  <mat-divider class="tw-w-10/12 tw-self-center"></mat-divider>
+
+  <div *ngIf="user" class="tw-flex tw-self-center tw-rounded tw-items-center tw-justify-between tw-w-11/12 tw-p-2 tw-my-3 tw-cursor-pointer" matRipple>
+    <img class="tw-h-8 tw-rounded-full" src="https://avatar.oxro.io/avatar.svg?name={{(user).fullname}}&length=1"/>
+    <p class="name {{expanded ? 'expand' : 'collapse'}}">{{(user).fullname}}</p>
+
+    <mat-icon class="tw-justify-self-end {{toggle ? 'open' : 'close'}}" color="primary" (click)="toggle = !toggle">keyboard_arrow_down</mat-icon>
+  </div>
+
+  <mat-divider class="tw-w-10/12 tw-self-center"></mat-divider>
+
+  <div class="tw-w-10/12 tw-self-center tw-overflow-hidden {{toggle ? 'open' : 'close'}}">
+    <ng-content></ng-content>
+  </div>
+
+</div>

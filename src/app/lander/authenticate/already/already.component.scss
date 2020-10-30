@@ -1,0 +1,11 @@
+@import '../authenticate.component.scss';
+
+.name {
+  color: #455a6488;
+}
+.controls {
+  > button:first-child {
+    background: #455a64;
+    color: white;
+  }
+}

@@ -10,15 +10,19 @@ import { ContentComponent } from './content/content.component';
 import { MatRippleModule } from "@angular/material/core";
 import { MatButtonModule } from "@angular/material/button";
 import { MatIconModule } from "@angular/material/icon";
+import { MatDividerModule } from "@angular/material/divider";
+import { MenuComponent } from './drawer/menu/menu.component';
+import { ItemComponent } from './drawer/menu/item/item.component';
 
 @NgModule({
-  declarations: [DashboardComponent, DrawerComponent, ToolbarComponent, ContentComponent],
+  declarations: [DashboardComponent, DrawerComponent, ToolbarComponent, ContentComponent, MenuComponent, ItemComponent],
   imports: [
     CommonModule,
     RouterModule.forChild(routes),
     MatRippleModule,
     MatButtonModule,
-    MatIconModule
+    MatIconModule,
+    MatDividerModule
   ]
 })
 export class DashboardModule { }

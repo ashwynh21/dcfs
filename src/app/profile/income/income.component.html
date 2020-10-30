@@ -1,0 +1,14 @@
+<div matRipple class="tw-p-4 tw-flex tw-justify-between tw-flex-col">
+  <div class="tw-flex tw-items-center">
+    <mat-icon class="icon tw-mr-4 tw-text-4xl">euro</mat-icon>
+    <p class="mat-h2 nomargin">Financial Info</p>
+  </div>
+
+  <p class="description">We now require that you enter you income details. This pertains information about your employment if any as well as documentation of income statements from your said employer.</p>
+</div>
+
+<!--This will show if the user information regarding this panel is present-->
+<div class="done" *ngIf="user.income">
+  <mat-icon>done</mat-icon>
+</div>
+

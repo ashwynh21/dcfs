@@ -26,6 +26,8 @@ mat-progress-bar {
 }
 .signin, .recover {
 
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+
   > mat-form-field {
     display: flex;
     flex-flow: column;
@@ -33,6 +35,9 @@ mat-progress-bar {
 
     margin: 16px 0;
   }
+}
+.font {
+  font-family: Roboto, "Helvetica Neue", sans-serif;
 }
 .form-controls {
   > p {

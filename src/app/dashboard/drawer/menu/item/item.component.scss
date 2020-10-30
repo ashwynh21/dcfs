@@ -1,0 +1,12 @@
+@import '../menu.component.scss';
+
+mat-icon.expand {
+  transition: font-size 256ms, margin 256ms;
+  font-size: 14pt;
+  margin-left: 0;
+}
+mat-icon.collapse {
+  transition: font-size 256ms, margin 256ms;
+  font-size: 16pt;
+  margin-left: 3px
+}

@@ -1,1 +1,25 @@
-<p>drawer works!</p>
+<div class="container {{toggle ? 'open' : 'close'}}">
+
+  <!--
+  We have two sections of content one for the main menu...
+  -->
+  <div class="main">
+
+  </div>
+
+  <!--
+  And the other for the users personalization and profile management...
+  -->
+  <app-menu [user]="user | async" [expanded]="toggle">
+    <app-item [expanded]="toggle" icon="settings_outline">Settings</app-item>
+    <app-item [expanded]="toggle" icon="help_outline">Help</app-item>
+    <app-item [expanded]="toggle" icon="exit_to_app_outline">Exit</app-item>
+  </app-menu>
+
+  <mat-divider class="tw-w-10/12 tw-self-center"></mat-divider>
+  <div *ngIf="user | async" class="tw-flex tw-justify-between tw-items-center tw-w-full tw-p-4 tw-py-3 tw-cursor-pointer version {{toggle ? 'open' : 'close'}}" matRipple>
+    <p class="version tw-opacity-25">v1.0.0</p>
+    <mat-icon color="primary" (click)="toggle = !toggle">chevron_left</mat-icon>
+  </div>
+
+</div>

@@ -1,0 +1,45 @@
+
+.user {
+  flex: 2;
+}
+.name {
+  margin: 0 64px 0 0 !important;
+  max-height: 20px
+}
+.name.expand {
+  transition: opacity 128ms 128ms, visibility 0ms 128ms;
+  opacity: 1;
+  visibility: visible;
+ }
+.name.collapse {
+  transition: opacity 64ms, visibility 0ms 128ms;
+  opacity: 0;
+  visibility: hidden;
+}
+
+.item {
+  > mat-icon {
+    display: flex;
+    align-items: center;
+  }
+  > p {
+    font-size: 10pt;
+    margin: 0;
+  }
+}
+mat-icon.close {
+  transition: transform 256ms;
+  transform: rotate(-90deg);
+}
+mat-icon.open {
+  transition: transform 256ms;
+  transform: rotate(0deg);
+}
+div.open {
+  transition: max-height 640ms;
+  max-height: 300px;
+}
+div.close {
+  transition: max-height 480ms;
+  max-height: 0;
+}

@@ -1,6 +1,54 @@
-:host {
-  width: 300px;
+.container {
+  width: 256px;
   height: 100%;
 
-  background: aliceblue;
+  background: #F6F6F6;
+  box-shadow: -8px 0 6px 1px #0008;
+  z-index: 9;
+
+  display: flex;
+  flex-flow: column;
+  justify-content: space-between;
+
+  color: #455a64;
+}
+.main {
+  flex: 5
+}
+
+.version {
+  font-size: 10pt;
+  text-align: center;
+  margin: 0;
+}
+.version.open {
+  > mat-icon {
+    transition: transform 256ms;
+    transform: rotate(180deg);
+  }
+  > p {
+    transition: opacity 128ms 128ms, display 0ms 128ms;
+    opacity: 1;
+    display: inline;
+  }
+}
+.version.close {
+  > mat-icon {
+    transition: transform 256ms;
+    transform: rotate(0deg);
+  }
+  > p {
+    transition: opacity 256ms, display 0ms 256ms;
+    opacity: 0;
+    display: none;
+  }
+}
+
+div.open {
+  transition: width 256ms;
+  width: 300px;
+}
+div.close {
+  transition: width 256ms;
+  width: 56px;
 }
