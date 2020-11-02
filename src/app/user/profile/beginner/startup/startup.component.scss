@@ -1,0 +1,27 @@
+:host {
+  min-width: 100%;
+  height: min-content;
+
+  position: relative;
+  transition: left 320ms;
+  left: 0;
+}
+
+.start, .end {
+  transition: left 300ms;
+}
+.start {
+  left: 0;
+}
+.end {
+  left: -80px
+}
+.getting {
+  background: #455a64;
+  color: white;
+  align-self: flex-end;
+}
+
+.color {
+  fill: #455a64;
+}

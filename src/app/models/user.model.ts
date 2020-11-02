@@ -49,6 +49,13 @@ export interface UserModel {
     updated: Date;
   }[];
 
+  registration?: {
+    name: string;
+    fsra: string;
+    physical: string;
+    mobile: string;
+  };
+
   created: Date;
   updated: Date;
   /*

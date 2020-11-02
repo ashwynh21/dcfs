@@ -1,0 +1,9 @@
+<!--
+All the content in the div below is for start up users and will only show if there are some parts of their profile
+that still need completion...
+with that said we should then wrap an if for the view
+-->
+<app-beginner *ngIf="!show(user | async)" [user]="user | async"></app-beginner>
+<!--
+Down here we then need to use this space to show the remaining aspects of the user dashboard...
+-->

@@ -3,10 +3,7 @@ import { Store } from "@ngrx/store";
 import { RunAuthenticateCookie, SelectCompleteAuthenticate } from "../store/user/authenticate";
 import { UserModel } from "../models/user.model";
 import { Observable } from "rxjs";
-import { filter, map } from "rxjs/operators";
 import { Router } from "@angular/router";
-import { MatDialog } from "@angular/material/dialog";
-import { AlreadyComponent } from "../lander/authenticate/already/already.component";
 
 @Component({
   selector: 'app-dashboard',
@@ -30,23 +27,14 @@ export class DashboardComponent implements OnInit {
     this.user.subscribe(user => {
       if(!user) {
         this.store.dispatch(RunAuthenticateCookie());
-      }
-    })
-
-    this.isnew().subscribe((value) => {
-      if(value) {
-        this.router.navigate(['welcome']);
+      } else {
+        if(!!user.access.find(access => access == 'user')) {
+          this.router.navigate(['dashboard/user'])
+        }
+        if(!!user.access.find(access => access == 'counselor')) {
+          this.router.navigate(['dashboard/counselor'])
+        }
       }
     });
-  }
-
-  isnew(): Observable<boolean> {
-    return this.user.pipe(
-      filter(user => !!user),
-      map(user => {
-        const date = ((new Date()).getTime() - new Date(user.created).getTime()) / 60;
-        return date < 60;
-      })
-    );
   }
 }

@@ -1,0 +1,52 @@
+
+:host {
+  margin: 24px;
+
+  min-width: 280px;
+  width: 280px;
+  height: 200px;
+
+  background: #F6F6F6;
+  border-radius: 4px;
+  box-shadow: 0 0 1px -1px #0001;
+
+  overflow: hidden;
+  font-family: "Times New Roman", sans-serif;
+  position: relative;
+
+  > div {
+    width: 100%;
+    height: 100%;
+
+    cursor: pointer;
+  }
+}
+.nomargin { margin: 0; }
+.description {
+
+  font-size: 10pt;
+  opacity: 0.5
+}
+.done {
+  max-width: 128px;
+  max-height: 128px;
+
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+
+  position: absolute;
+  top: -72px;
+  right: -72px;
+
+  background: #FFFE;
+  box-shadow: 0 0 1px -1px #0001;
+
+  transform: rotate(45deg);
+
+  > mat-icon {
+    transform: rotate(-45deg);
+    margin-bottom: 8px;
+    color: darkgreen;
+  }
+}

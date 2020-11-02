@@ -1,0 +1,30 @@
+
+<div class="tw-flex tw-items-center tw-relative tw-w-full">
+  <div class="tw-flex tw-w-full tw-items-center tw-relative {{toggle ? 'start' : 'end'}}">
+    <app-panel [user]="user" (click)="page(0)"></app-panel>
+    <app-bio [user]="user" (click)="page(1)"></app-bio>
+    <app-income [user]="user" (click)="page(2)"></app-income>
+    <app-debt [user]="user" (click)="page(3)"></app-debt>
+  </div>
+  <div class="tw-flex tw-items-center tw-absolute tw-w-full">
+    <!--
+    button to go left
+    -->
+    <button mat-icon-button class="left" (click)="toggle = true"><mat-icon>chevron_left</mat-icon></button>
+    <!--
+    button to go right
+    -->
+    <button mat-icon-button class="right" (click)="toggle = false"><mat-icon>chevron_right</mat-icon></button>
+  </div>
+</div>
+
+<!--
+so down here we will then place the content that is required of the above mentioned panels...
+-->
+<div class="tw-flex tw-w-full tw-items-start tw-relative container" #pager>
+  <app-startup #startup></app-startup>
+  <app-personal [user]="user" #personal></app-personal>
+  <app-finance [user]="user" #finance></app-finance>
+  <app-commitment [user]="user" #commitment></app-commitment>
+  <app-complete></app-complete>
+</div>

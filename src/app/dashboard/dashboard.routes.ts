@@ -7,20 +7,20 @@ export default [
     component: DashboardComponent,
     children: [
       {
-        path: '',
+        path: 'user',
         loadChildren: () => import(
-          /* webpackChunkName: "profile" */
-          '../profile/profile.module'
+          /* webpackChunkName: "user" */
+          '../user/user.module'
           )
-          .then(profile => profile.ProfileModule)
+          .then(user => user.UserModule)
       },
       {
-        path: 'welcome',
+        path: 'counselor',
         loadChildren: () => import(
-          /* webpackChunkName: "beginner" */
-          '../beginner/beginner.module'
-        )
-        .then(beginner => beginner.BeginnerModule)
+          /* webpackChunkName: "counselor" */
+          '../counselor/counselor.module'
+          )
+          .then(counselor => counselor.CounselorModule)
       },
     ]
   },

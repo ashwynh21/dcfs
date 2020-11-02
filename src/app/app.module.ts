@@ -23,7 +23,7 @@ import { GuardsModule } from "./guards/guards.module";
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
   ],
   imports: [
     BrowserModule,
