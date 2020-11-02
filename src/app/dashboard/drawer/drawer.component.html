@@ -13,7 +13,7 @@
   <app-menu [user]="user | async" [expanded]="toggle">
     <app-item [expanded]="toggle" icon="settings_outline">Settings</app-item>
     <app-item [expanded]="toggle" icon="help_outline">Help</app-item>
-    <app-item [expanded]="toggle" icon="exit_to_app_outline">Exit</app-item>
+    <app-item [expanded]="toggle" icon="exit_to_app_outline" (click)="exit()">Exit</app-item>
   </app-menu>
 
   <mat-divider class="tw-w-10/12 tw-self-center"></mat-divider>

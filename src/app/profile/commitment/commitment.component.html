@@ -6,31 +6,32 @@
     Please list any commitments & debts that you may have, specifying the creditor's name, the account number, the outstanding amount (SZA) and finally, your monthly installment to the commitment
   </p>
 
-  <form class="tw-flex tw-items-start">
+  <form class="tw-flex tw-items-start" *ngFor="let commitment of commitments" [formGroup]="commitment">
     <mat-form-field appearance="outline">
       <mat-label>Name</mat-label>
-      <input matInput/>
+      <input matInput formControlName="name"/>
     </mat-form-field>
     <mat-form-field appearance="outline" class="tw-ml-4">
       <mat-label>Account Number</mat-label>
-      <input matInput/>
+      <input matInput formControlName="account"/>
     </mat-form-field>
     <mat-form-field appearance="outline" class="tw-ml-4">
       <mat-label>Outstanding (SZA)</mat-label>
-      <input matInput type="number"/>
+      <input matInput type="number" formControlName="outstanding"/>
     </mat-form-field>
     <mat-form-field appearance="outline" class="tw-ml-4">
       <mat-label>Monthly Commitment (SZA)</mat-label>
-      <input matInput type="number"/>
+      <input matInput type="number" formControlName="monthly"/>
     </mat-form-field>
 
-    <button mat-icon-button class="update"><mat-icon>add</mat-icon></button>
+    <button mat-icon-button *ngIf="(commitments.length - 1) != commitments.indexOf(commitment)" class="close" (click)="removecommitment(commitments.indexOf(commitment))"><mat-icon>delete</mat-icon></button>
+    <button mat-icon-button *ngIf="(commitments.length - 1) == commitments.indexOf(commitment)" class="update" (click)="addcommitment()"><mat-icon>add</mat-icon></button>
   </form>
 
   <div class="tw-flex tw-justify-between tw-mt-10">
-    <mat-progress-spinner *ngIf="false" mode="indeterminate" diameter="28"></mat-progress-spinner>
+    <mat-progress-spinner *ngIf="loading | async" mode="indeterminate" diameter="28"></mat-progress-spinner>
     <div></div>
 
-    <button mat-button class="update" (click)="$event.preventDefault();">finish</button>
+    <button mat-button class="update" (click)="update($event)">update</button>
   </div>
 </div>

@@ -1,6 +1,10 @@
 :host {
   min-width: 100%;
-  height: 100%;
+  height: min-content;
+
+  position: relative;
+  transition: left 320ms;
+  left: 0;
 }
 
 .start, .end {

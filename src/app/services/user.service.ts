@@ -8,6 +8,7 @@ import { UserModel } from '../models/user.model';
 import { Observable, of } from 'rxjs';
 
 import configuration from '../configurations/configuration.json';
+import { map } from "rxjs/operators";
 
 @Injectable({
   providedIn: ServicesModule
@@ -68,7 +69,13 @@ export class UserService {
           headers: {
             'Content-Type': 'application/json'
           }
-        });
+        }).pipe(
+          map((response: Response) => {
+            this.cookies.set('user', JSON.stringify(response.payload));
+
+            return response;
+          })
+      );
     }
   }
 

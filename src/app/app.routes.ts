@@ -1,4 +1,5 @@
 import {Routes} from '@angular/router';
+import { DashboardGuard } from "./guards/dashboard.guard";
 
 export default [
   {
@@ -11,6 +12,7 @@ export default [
   },
   {
     path: 'dashboard',
+    canActivate: [DashboardGuard],
     loadChildren: () => import(
       /* webpackChunkName: "dashboard" */
       './dashboard/dashboard.module'

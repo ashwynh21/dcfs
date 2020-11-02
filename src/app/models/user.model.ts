@@ -39,12 +39,14 @@ export interface UserModel {
     deductions: number;
     total: number;
   }
-  expenses?: { name: string; amount: number }[];
+  expenses?: { name: string; amount: number; created: Date; updated: Date }[];
   debt?: {
     name: string;
     account: string;
     outstanding: number;
     monthly: number;
+    created: Date;
+    updated: Date;
   }[];
 
   created: Date;

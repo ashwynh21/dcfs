@@ -1,6 +1,6 @@
 import { UserModel } from "../../../models/user.model";
 import { Action, createFeatureSelector, createReducer, createSelector, on } from "@ngrx/store";
-import { CompleteCreate, ErrorCreate, RunCreate } from "./create.action";
+import { CompleteCreate, CompleteUpdate, ErrorCreate, ErrorUpdate, RunCreate, RunUpdate } from "./create.action";
 import { UserState } from "../index";
 
 export interface CreateState {
@@ -25,6 +25,20 @@ const reducer = createReducer<CreateState>(
     user: action
   })),
   on(ErrorCreate, (state, action) => ({
+    ...state,
+    loading: false,
+    error: action
+  })),
+  on(RunUpdate, (state) => ({
+    ...state,
+    loading: true
+  })),
+  on(CompleteUpdate, (state, action) => ({
+    ...state,
+    loading: false,
+    user: action
+  })),
+  on(ErrorUpdate, (state, action) => ({
     ...state,
     loading: false,
     error: action

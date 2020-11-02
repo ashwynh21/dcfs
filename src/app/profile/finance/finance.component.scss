@@ -1,6 +1,10 @@
 :host {
   min-width: 100%;
   height: 100%;
+
+  position: relative;
+  transition: left 320ms;
+  left: 0;
 }
 .upload {
   height: min-content;
@@ -25,6 +29,13 @@
 }
 .update {
   background: #455a64;
+  color: white;
+
+  margin-left: 12px;
+  margin-top: 8px;
+}
+.close {
+  background: #800;
   color: white;
 
   margin-left: 12px;

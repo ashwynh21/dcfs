@@ -1,30 +1,42 @@
-<div class="tw-flex tw-items-center"></div>
-
-<div class="tw-flex tw-items-center tw-relative tw-w-full">
-  <div class="tw-flex tw-w-full tw-items-center tw-relative {{toggle ? 'start' : 'end'}}">
-    <app-panel [user]="user | async" (click)="page(0)"></app-panel>
-    <app-bio [user]="user | async" (click)="page(1)"></app-bio>
-    <app-income [user]="user | async" (click)="page(2)"></app-income>
-    <app-debt [user]="user | async" (click)="page(3)"></app-debt>
+<!--
+All the content in the div below is for start up users and will only show if there are some parts of their profile
+that still need completion...
+with that said we should then wrap an if for the view
+-->
+<div *ngIf="!show(user | async)">
+  <div class="tw-flex tw-items-center tw-relative tw-w-full">
+    <div class="tw-flex tw-w-full tw-items-center tw-relative {{toggle ? 'start' : 'end'}}">
+      <app-panel [user]="user | async" (click)="page(0)"></app-panel>
+      <app-bio [user]="user | async" (click)="page(1)"></app-bio>
+      <app-income [user]="user | async" (click)="page(2)"></app-income>
+      <app-debt [user]="user | async" (click)="page(3)"></app-debt>
+    </div>
+    <div class="tw-flex tw-items-center tw-absolute tw-w-full">
+      <!--
+      button to go left
+      -->
+      <button mat-icon-button class="left" (click)="toggle = true"><mat-icon>chevron_left</mat-icon></button>
+      <!--
+      button to go right
+      -->
+      <button mat-icon-button class="right" (click)="toggle = false"><mat-icon>chevron_right</mat-icon></button>
+    </div>
   </div>
-  <div class="tw-flex tw-items-center tw-absolute tw-w-full">
-    <!--
-    button to go left
-    -->
-    <button mat-icon-button class="left" (click)="toggle = true"><mat-icon>chevron_left</mat-icon></button>
-    <!--
-    button to go right
-    -->
-    <button mat-icon-button class="right" (click)="toggle = false"><mat-icon>chevron_right</mat-icon></button>
+
+  <!--
+  so down here we will then place the content that is required of the above mentioned panels...
+  -->
+  <div class="tw-flex tw-w-full tw-items-start tw-relative container" #pager>
+    <app-startup #startup></app-startup>
+    <app-personal [user]="user | async" #personal></app-personal>
+    <app-finance [user]="user | async" #finance></app-finance>
+    <app-commitment [user]="user | async" #commitment></app-commitment>
+    <app-complete #complete></app-complete>
   </div>
 </div>
-
 <!--
-so down here we will then place the content that is required of the above mentioned panels...
+Down here we then need to use this space to show the remaining aspects of the user dashboard...
 -->
-<div class="tw-flex tw-w-full tw-items-center tw-relative container" #pager>
-  <app-startup #startup></app-startup>
-  <app-personal [user]="user | async" #personal></app-personal>
-  <app-finance #finance></app-finance>
-  <app-commitment #commitment></app-commitment>
+<div>
+
 </div>

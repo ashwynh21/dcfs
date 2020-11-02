@@ -19,11 +19,14 @@ import { MatProgressSpinnerModule } from "@angular/material/progress-spinner";
 import { PersonalComponent } from './personal/personal.component';
 import { FinanceComponent } from './finance/finance.component';
 import { CommitmentComponent } from './commitment/commitment.component';
+import { ReactiveFormsModule } from "@angular/forms";
+import { CompleteComponent } from './complete/complete.component';
 
 @NgModule({
-  declarations: [ProfileComponent, PanelComponent, BioComponent, IncomeComponent, DebtComponent, StartupComponent, PersonalComponent, FinanceComponent, CommitmentComponent],
+  declarations: [ProfileComponent, PanelComponent, BioComponent, IncomeComponent, DebtComponent, StartupComponent, PersonalComponent, FinanceComponent, CommitmentComponent, CompleteComponent],
   imports: [
     CommonModule,
+    ReactiveFormsModule,
     RouterModule.forChild(routes),
     MatRippleModule,
     MatIconModule,
@@ -31,7 +34,7 @@ import { CommitmentComponent } from './commitment/commitment.component';
     MatFormFieldModule,
     MatInputModule,
     MatCheckboxModule,
-    MatProgressSpinnerModule
+    MatProgressSpinnerModule,
   ]
 })
 export class ProfileModule { }

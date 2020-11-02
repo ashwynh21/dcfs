@@ -41,7 +41,12 @@ export class AuthenticateEffect {
     exhaustMap(() => of(this.userservice
       .getuser()).pipe(
         map(
-          (user: UserModel) => CompleteAuthenticate(user)
+          (user: UserModel) => {
+            if(user) {
+              return CompleteAuthenticate(user);
+            }
+            return NoAuthenticate();
+          }
         ),
         catchError(error => of(ErrorAuthenticate(error)))
       )

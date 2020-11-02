@@ -19,6 +19,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { HashLocationStrategy, LocationStrategy } from '@angular/common';
 import { ServicesModule } from './services/services.module';
 import { CreateEffect } from "./store/user/create";
+import { GuardsModule } from "./guards/guards.module";
 
 @NgModule({
   declarations: [
@@ -28,6 +29,7 @@ import { CreateEffect } from "./store/user/create";
     BrowserModule,
     BrowserAnimationsModule,
     ServicesModule,
+    GuardsModule,
 
     StoreModule.forRoot(Reducers, {
       metaReducers: MetaReducers,

@@ -42,7 +42,10 @@ const reducer = createReducer<AuthenticateState>(
     ...state,
     user: undefined
   })),
-  on(NoAuthenticate, (state) => state),
+  on(NoAuthenticate, (state) => ({
+    ...state,
+    loading: false
+  })),
 
   on(RunAuthenticateCookie, (state) => ({
     ...state,
