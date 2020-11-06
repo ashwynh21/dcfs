@@ -2,8 +2,8 @@ import { Component, OnInit } from "@angular/core";
 import { Observable } from "rxjs";
 import { UserModel } from "../../models/user.model";
 import { Store } from "@ngrx/store";
-import { RemoveAuthenticate, SelectCompleteAuthenticate } from "../../store/user/authenticate";
 import { Router } from "@angular/router";
+import { RemoveAuthenticate, SelectUser } from "../../store/user";
 
 @Component({
   selector: 'app-drawer',
@@ -18,7 +18,7 @@ export class DrawerComponent implements OnInit {
               private router: Router) { }
 
   ngOnInit(): void {
-    this.user = this.store.select(SelectCompleteAuthenticate);
+    this.user = this.store.select(SelectUser);
   }
 
   exit() {

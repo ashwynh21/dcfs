@@ -1,0 +1,15 @@
+:host {
+  padding: 24px;
+  overflow-x: hidden;
+  display: flex;
+  flex-flow: column;
+}
+.vertical {
+  background-color: #DDD;
+  width: 1px;
+  height: 256px;
+}
+.divider {
+  margin-top: 24px;
+  margin-bottom: 24px;
+}

@@ -1,5 +1,6 @@
 import { Routes } from '@angular/router';
 import { DashboardComponent } from "./dashboard.component";
+import { LandComponent } from "./land/land.component";
 
 export default [
   {
@@ -7,21 +8,18 @@ export default [
     component: DashboardComponent,
     children: [
       {
-        path: 'user',
-        loadChildren: () => import(
-          /* webpackChunkName: "user" */
-          '../user/user.module'
-          )
-          .then(user => user.UserModule)
+        path: '',
+        component: LandComponent
       },
       {
-        path: 'counselor',
-        loadChildren: () => import(
-          /* webpackChunkName: "counselor" */
-          '../counselor/counselor.module'
-          )
-          .then(counselor => counselor.CounselorModule)
-      },
+        path: 'clients',
+        loadChildren: () =>
+          import(
+            /* webpackChunkName: "clients" */
+            '../clients/clients.module'
+            )
+            .then(client => client.ClientsModule)
+      }
     ]
   },
 ] as Routes;

@@ -3,8 +3,8 @@ import { ErrorStateMatcher, ThemePalette } from '@angular/material/core';
 import { FormBuilder, FormControl, FormGroup, FormGroupDirective, NgForm, Validators } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { Store } from '@ngrx/store';
-import { RunRecover, SelectCompleteRecover, SelectErrorRecover, SelectLoadingRecover } from '../../../store/user/recover';
 import { Response } from '../../../helpers/response';
+import { RecoverUser, SelectErrorUser, SelectLoadingUser } from "../../../store/user";
 
 @Component({
   selector: 'app-recover',
@@ -34,13 +34,12 @@ export class RecoverComponent implements OnInit {
       ])
     });
 
-    this.error = this.store.select(SelectErrorRecover);
-    this.recover = this.store.select(SelectCompleteRecover);
-    this.loading = this.store.select(SelectLoadingRecover);
+    this.error = this.store.select(SelectErrorUser);
+    this.loading = this.store.select(SelectLoadingUser);
   }
 
   public recovery() {
-    this.store.dispatch(RunRecover(
+    this.store.dispatch(RecoverUser(
       {username: this.recoverform.get('username').value}
     ));
   }

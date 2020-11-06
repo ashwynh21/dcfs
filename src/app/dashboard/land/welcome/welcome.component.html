@@ -1,0 +1,36 @@
+<!--
+Here we would like to welcome the user to the platform as well as provide the user with a small form of help through
+either tool tips or otherwise...
+-->
+<div *ngIf="dismiss" class="tw-rounded-md">
+  <div class="tw-flex">
+    <img class="tw-h-24" src="./assets/icons/dcf.png" />
+    <div class="tw-flex tw-flex-col tw-ml-6">
+      <p class="mat-h1">Welcome to DCF!</p>
+      <p class="description">
+        Thank you for using DCF to optimize your work space, to get started you can start onboarding your clients by adding
+        them in using the short links we have provided below.
+      </p>
+    </div>
+  </div>
+
+  <div class="tw-flex shortcuts">
+    <button mat-icon-button matTooltip="Dismiss" (click)="close()"><mat-icon color="warn">close</mat-icon></button>
+    <!--
+    We are going to need a set of buttons here to work as route shortcuts and dialog buttons to allow users to quickly
+    navigate the application
+    -->
+    <div class="tw-flex">
+      <button mat-button matTooltip="Add a new client" (click)="create()">add client</button>
+      <!--
+      A button for a new counsellor
+      -->
+      <button mat-button matTooltip="Create a new sub user for your organization" (click)="enroll()">add counsellor</button>
+
+      <!--
+      Now a button to allow the user to get help
+      -->
+      <mat-icon color="primary" matTooltip="Get assistance from our help page">help</mat-icon>
+    </div>
+  </div>
+</div>

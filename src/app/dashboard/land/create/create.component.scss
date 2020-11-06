@@ -1,0 +1,95 @@
+:host {
+  display: flex;
+  align-items: center;
+  height: 100%;
+  overflow: hidden;
+
+  > div:first-child {
+    flex: 1;
+    > img {
+      object-fit: cover;
+    }
+    > div {
+      position: absolute;
+      background: #FFF8;
+      width: 100%;
+      height: 100%;
+    }
+  }
+  > div:last-child {
+    flex: 4;
+    overflow-y: scroll;
+    padding-right: 17px;
+    margin-right: -17px;
+
+  }
+}
+.description {
+  color: #888;
+  font-size: 10pt;
+  margin-top: 0;
+}
+.next {
+  background: #455a64;
+  color: white;
+}
+.upload {
+  height: min-content;
+  cursor: pointer;
+  border-radius: 4px;
+  margin-bottom: 20px;
+  background: #455a64;
+
+  > mat-label {
+    margin-left: 12px;
+    color: white;
+  }
+  > mat-icon {
+    color: white;
+  }
+}
+.description {
+  color: #455a64;
+  opacity: 0.4;
+}
+.top {
+}
+.update {
+  background: #455a64;
+  color: white;
+
+  margin-left: 12px;
+  margin-top: 8px;
+}
+.close {
+  background: #800;
+  color: white;
+
+  margin-left: 12px;
+  margin-top: 8px;
+}
+.expense, .debt {
+  > mat-form-field {
+    height: min-content;
+  }
+  > button {
+    background: #455a64;
+    color: white;
+  }
+}
+.expense:not(:last-child), .debt:not(:last-child) {
+
+  > button {
+    background: #880000;
+    color: white;
+  }
+}
+.button {
+  margin-top: 10px;
+}
+.small {
+  width: 128px;
+}
+.margin {
+  margin-bottom: 8px;
+}

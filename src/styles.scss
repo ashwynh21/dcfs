@@ -41,3 +41,6 @@ html, body { height: 100%; overflow: hidden; }
 .mat-dialog-container {
   padding: 0 !important;
 }
+::ng-deep .mat-menu-panel {
+  box-shadow: 0 0 4px 1px #DDDDDD;
+}

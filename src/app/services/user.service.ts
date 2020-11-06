@@ -9,12 +9,13 @@ import { Observable, of } from 'rxjs';
 
 import configuration from '../configurations/configuration.json';
 import { map } from "rxjs/operators";
+import { CounsellorService } from "./counsellor.service";
 
 @Injectable({
   providedIn: ServicesModule
 })
 export class UserService {
-  public name = 'user';
+  public name = 'users';
   /*
   this service much like the node service API and its frame architecture will serve as the client side liaison.
    */
@@ -91,8 +92,8 @@ export class UserService {
     }
   }
 
-  public read(data: {_id: string}): Observable<Response> {
-    return this.http.get(`${configuration.root}${this.name}?_id=${data._id}`, {
+  public read(data: Partial<UserModel & {page: number, size: number, length: number }>): Observable<Response> {
+    return this.http.get(`${configuration.root}${this.name}?${CounsellorService.querystring(CounsellorService.flatten(data))}`, {
       headers: {
         'Content-Type': 'application/json'
       }

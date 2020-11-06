@@ -1,0 +1,20 @@
+<div class="tw-flex-1">
+  <div class="tw-flex tw-justify-between tw-flex-1 tw-mr-4">
+    <p class="mat-h3 name">{{client.fullname}} <small><strong>({{client.pin}})</strong></small></p>
+
+    <p class="description">{{client.email}} <strong>or</strong> {{client.mobile}}</p>
+  </div>
+  <p class="description">
+    Currently employed with <strong>{{client.employment.name}}</strong> earning an income of <strong>{{client.income.gross | currency: 'E'}}</strong>. {{client.marital ? 'Married with ' + client.marital.dependents + '.' : ''}}
+  </p>
+
+  <!--
+  Here we display the indebtment
+  -->
+  <div class="tw-mt-12 tw-mb-2"><p class="description"><small>indebtedness</small></p></div>
+  <div class="tw-w-4/5 tw-h-4 indebment tw-rounded-md">
+    <div class="bar tw-h-full tw-rounded-md" style="width:{{compute() | percent}}; background:{{interpolate(compute())}}"><p class="value">{{compute() | percent}}</p></div>
+  </div>
+</div>
+
+<button mat-icon-button><mat-icon>more_vert</mat-icon></button>

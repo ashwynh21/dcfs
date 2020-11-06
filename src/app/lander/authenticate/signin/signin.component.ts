@@ -1,15 +1,10 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { ErrorStateMatcher, ThemePalette } from '@angular/material/core';
 import { FormBuilder, FormControl, FormGroup, FormGroupDirective, NgForm, Validators } from '@angular/forms';
-import {
-  RunAuthenticate,
-  SelectCompleteAuthenticate,
-  SelectErrorAuthenticate,
-  SelectLoadingAuthenticate
-} from '../../../store/user/authenticate';
 import { Observable } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { Router } from '@angular/router';
+import { AuthenticateUser, SelectErrorUser, SelectLoadingUser, SelectUser } from "../../../store/user";
 
 @Component({
   selector: 'app-signin',
@@ -44,8 +39,8 @@ export class SigninComponent implements OnInit {
       ])
     })
 
-    this.error = this.store.select(SelectErrorAuthenticate);
-    this.loading = this.store.select(SelectLoadingAuthenticate);
+    this.error = this.store.select(SelectErrorUser);
+    this.loading = this.store.select(SelectLoadingUser);
   }
 
   /*
@@ -55,7 +50,7 @@ export class SigninComponent implements OnInit {
     /*
     * We have to subscribe here in case the user has already signed in...
     * */
-    this.store.select(SelectCompleteAuthenticate)
+    this.store.select(SelectUser)
       .subscribe(
         async success => {
           if (success) {
@@ -64,7 +59,7 @@ export class SigninComponent implements OnInit {
         },
       );
 
-    this.store.dispatch(RunAuthenticate({
+    this.store.dispatch(AuthenticateUser({
       username: this.signinform.get('username').value,
       password: this.signinform.get('password').value
     }));

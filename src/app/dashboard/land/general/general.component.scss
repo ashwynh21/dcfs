@@ -1,0 +1,57 @@
+:host {
+  flex: 1;
+  overflow-y: hidden;
+  position: relative;
+
+  > .content {
+    overflow-x: scroll;
+    display: flex;
+    align-items: center;
+
+    margin-bottom: -17px;
+    padding: 0 24px 17px;
+  }
+  > .controls {
+    pointer-events: none;
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    > button {
+      pointer-events: all;
+      margin-bottom: 16px;
+      background: #FFFB;
+    }
+    > button:first-child {
+      margin-left: 24px;
+    }
+  }
+}
+.counter {
+  font-family: "Times New Roman", sans-serif;
+  background-color: #F6F6F6;
+  display: flex;
+  flex-flow: column;
+  justify-content: center;
+  cursor: pointer;
+  min-width: min-content;
+
+  > p:first-child {
+    font-size: 18pt;
+    font-weight: bold;
+    margin: 0;
+    color: #455a64;
+  }
+  > p:nth-child(2) {
+    margin-top: 8px;
+    margin-bottom: 0;
+    color: #AAA;
+    white-space: nowrap;
+  }
+}

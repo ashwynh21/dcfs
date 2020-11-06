@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from "@angular/core";
 import { environment } from '../environments/environment';
 
 import { AppComponent } from './app.component';
@@ -9,17 +9,15 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreRouterConnectingModule } from '@ngrx/router-store';
 import { RouterModule } from '@angular/router';
-import { AuthenticateEffect } from './store/user/authenticate';
-import { RecoverEffect } from './store/user/recover';
-import { RefreshEffect } from './store/user/refresh';
-import { MetaReducers, Reducers } from './store';
+import { CounsellorEffect, MetaReducers, Reducers } from "./store";
 
 import routes from './app.routes';
 import { HttpClientModule } from '@angular/common/http';
 import { HashLocationStrategy, LocationStrategy } from '@angular/common';
 import { ServicesModule } from './services/services.module';
-import { CreateEffect } from "./store/user/create";
 import { GuardsModule } from "./guards/guards.module";
+import { UserEffect } from "./store/user";
+import { ClientEffect } from "./store/clients";
 
 @NgModule({
   declarations: [
@@ -39,10 +37,9 @@ import { GuardsModule } from "./guards/guards.module";
       }
     }),
     EffectsModule.forRoot([
-      AuthenticateEffect,
-      RecoverEffect,
-      RefreshEffect,
-      CreateEffect,
+      UserEffect,
+      CounsellorEffect,
+      ClientEffect,
     ]),
 
     RouterModule.forRoot(routes),
@@ -55,6 +52,7 @@ import { GuardsModule } from "./guards/guards.module";
     HttpClientModule,
     { provide: LocationStrategy, useClass: HashLocationStrategy }
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class AppModule { }

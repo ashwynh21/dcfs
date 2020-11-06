@@ -3,17 +3,20 @@
   <!--
   We have two sections of content one for the main menu...
   -->
-  <div class="main">
-
-  </div>
-
+  <app-menu icon="support_agent" name="Debt Counsellors" [expanded]="toggle">
+    <app-item [expanded]="toggle" icon="history">Counsellor Activity</app-item>
+  </app-menu>
+  <app-menu icon="work_outline" name="Client Management" [expanded]="toggle" [routerLink]="['clients']">
+    <app-item [expanded]="toggle" icon="person_outline">All Clients</app-item>
+    <app-item [expanded]="toggle" icon="analytics_outline">Client Analytics</app-item>
+  </app-menu>
   <!--
   And the other for the users personalization and profile management...
   -->
   <app-menu [user]="user | async" [expanded]="toggle">
-    <app-item [expanded]="toggle" icon="settings_outline">Settings</app-item>
+    <app-item [expanded]="toggle" icon="settings_outline">Account Settings</app-item>
     <app-item [expanded]="toggle" icon="help_outline">Help</app-item>
-    <app-item [expanded]="toggle" icon="exit_to_app_outline" (click)="exit()">Exit</app-item>
+    <app-item [expanded]="toggle" icon="exit_to_app_outline" (click)="exit()">Sign Out</app-item>
   </app-menu>
 
   <mat-divider class="tw-w-10/12 tw-self-center"></mat-divider>

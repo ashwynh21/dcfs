@@ -1,0 +1,22 @@
+
+<div class="tw-relative">
+  <img class="tw-h-48 tw-rounded-full tw-absolute" src="https://avatar.oxro.io/avatar.svg?name={{user.username}}&length=1"/>
+  <div class="tw-h-48 tw-w-48 tw-rounded-full tw-cursor-pointer" matRipple></div>
+</div>
+<div class="registration tw-flex tw-flex-col tw-justify-between">
+  <p>FSRA Registration Number: {{counsellor.fsra}}</p>
+  <p>{{counsellor.name}}</p>
+
+  <div class="tw-flex">
+    <p>{{user.username}}</p>
+    <p>{{counsellor.created | date}}</p>
+  </div>
+  <button mat-icon-button [matMenuTriggerFor]="options"><mat-icon>more_horiz</mat-icon></button>
+</div>
+
+<mat-menu #options>
+  <button mat-menu-item>
+    <mat-icon color="primary">edit</mat-icon>
+    <span>Edit Account</span>
+  </button>
+</mat-menu>

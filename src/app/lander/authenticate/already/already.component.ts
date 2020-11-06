@@ -3,7 +3,7 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { select, Store } from '@ngrx/store';
 import { UserModel } from "../../../models/user.model";
-import { RemoveAuthenticate, RunAuthenticateCookie, SelectCompleteAuthenticate } from "../../../store/user/authenticate";
+import { AuthenticateUserCookie, RemoveAuthenticate, SelectUser } from "../../../store/user";
 
 @Component({
   selector: 'app-already',
@@ -21,13 +21,13 @@ export class AlreadyComponent {
     private store: Store
   ) {
 
-    this.store.pipe(select(SelectCompleteAuthenticate))
+    this.store.pipe(select(SelectUser))
       .subscribe(
         (profile) => {
           if (profile) {
             data.user = profile;
           } else {
-            this.store.dispatch(RunAuthenticateCookie());
+            this.store.dispatch(AuthenticateUserCookie());
           }
         }
       ).unsubscribe();

@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from "@ngrx/store";
-import { RunAuthenticateCookie, SelectCompleteAuthenticate } from "../store/user/authenticate";
 import { UserModel } from "../models/user.model";
 import { Observable } from "rxjs";
 import { Router } from "@angular/router";
+import { AuthenticateUserCookie, SelectUser } from "../store/user";
 
 @Component({
   selector: 'app-dashboard',
@@ -23,17 +23,10 @@ export class DashboardComponent implements OnInit {
               private router: Router) { }
 
   ngOnInit(): void {
-    this.user = this.store.select(SelectCompleteAuthenticate);
+    this.user = this.store.select(SelectUser);
     this.user.subscribe(user => {
       if(!user) {
-        this.store.dispatch(RunAuthenticateCookie());
-      } else {
-        if(!!user.access.find(access => access == 'user')) {
-          this.router.navigate(['dashboard/user'])
-        }
-        if(!!user.access.find(access => access == 'counselor')) {
-          this.router.navigate(['dashboard/counselor'])
-        }
+        this.store.dispatch(AuthenticateUserCookie());
       }
     });
   }

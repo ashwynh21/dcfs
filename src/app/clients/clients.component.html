@@ -1,0 +1,52 @@
+<!--
+So first here we are going to have the title at the top. that is the client management module, then we are going
+to have the statistics below it and finally below that, we are going to have the client list depicted in an
+understanding manner...We must consider that the client display item will not be the final component for displaying
+client information therefore we will have a route to display finer details about the counsellors client...
+-->
+<!--
+Title goes here
+-->
+<div>
+  <div class="tw-flex tw-justify-between tw-items-center">
+    <div class="tw-flex tw-items-center">
+      <mat-icon class="tw-mr-4 tw-mb-3">work_outline</mat-icon>
+      <p class="mat-h1">Client Management</p>
+    </div>
+
+    <button mat-icon-button class="more" [matMenuTriggerFor]="options"><mat-icon>more_horiz</mat-icon></button>
+  </div>
+  <mat-divider></mat-divider>
+</div>
+
+<!--
+Statistics go here
+-->
+
+<!--
+Client list will go here...There may be some content to put on the right end as a panel since it matches the consistency
+of the home page we are okay with reserving the space
+-->
+<div class="tw-flex">
+  <!--
+  So then the actual client list will go here
+  -->
+  <div class="tw-flex tw-flex-col tw-items-center tw-flex-1 tw-px-24">
+
+    <!--
+    so in here we will run an iteration on client objects to render in a sub component...
+    -->
+    <app-client [client]="client" *ngFor="let client of (clients | async)"></app-client>
+  </div>
+  <!--
+  And the side bar will go here
+  -->
+  <div class="tw-w-64"></div>
+</div>
+
+<mat-menu #options>
+  <button mat-menu-item (click)="create()">
+    <mat-icon color="primary">add</mat-icon>
+    <span>Add Client</span>
+  </button>
+</mat-menu>

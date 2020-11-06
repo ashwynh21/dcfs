@@ -8,7 +8,7 @@
 
   display: flex;
   flex-flow: column;
-  justify-content: space-between;
+  justify-content: flex-end;
 
   color: #455a64;
 }
@@ -51,4 +51,12 @@ div.open {
 div.close {
   transition: width 256ms;
   width: 56px;
+}
+:host {
+  position: relative;
+  > img {
+    position: absolute;
+    object-fit: cover;
+    opacity: 0.2;
+  }
 }

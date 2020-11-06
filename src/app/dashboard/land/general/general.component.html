@@ -1,0 +1,48 @@
+<div class="content" #content>
+
+  <!--
+  Here we will show the user the number of clients that they have as well as the number of counsellors
+  that are under this organization or counsellor organization...
+  -->
+
+  <!--
+  So first we will show the number of clients
+  -->
+  <div class="tw-flex tw-flex-col tw-mx-4 tw-items-center tw-py-4 tw-px-8 tw-rounded-md counter" matRipple>
+    <p>{{(clientpage | async).length}}</p>
+    <p>Clients</p>
+  </div>
+  <!--
+  Then we show the number of counsellors that the user has and then we show the number
+  total number of money that the user is managing from the users
+  -->
+  <div class="tw-flex tw-flex-col tw-mx-4 tw-items-center tw-py-4 tw-px-8 tw-rounded-md counter" matRipple>
+    <p>{{(userpage | async).length}}</p>
+    <p>Counsellors</p>
+  </div>
+  <!--
+  Showing the total amount of income that the counselling organization is managing from the profile...
+  -->
+  <div class="tw-flex tw-flex-col tw-mx-4 tw-items-center tw-py-4 tw-px-8 tw-rounded-md counter" matRipple>
+    <p>{{debt | async | currency: 'E'}}</p>
+    <p>Average Client Debt Amount</p>
+  </div>
+
+  <!--
+  Let us add a few more filter averages to show more information for the account
+  -->
+  <div class="tw-flex tw-flex-col tw-mx-4 tw-items-center tw-py-4 tw-px-8 tw-rounded-md counter" matRipple>
+    <p>{{indebtment | async | percent}}</p>
+    <p>Average Client Indebtment</p>
+  </div>
+
+</div>
+
+<div class="controls">
+  <button mat-icon-button (click)="left()">
+    <mat-icon>chevron_left</mat-icon>
+  </button>
+  <button mat-icon-button (click)="right()">
+    <mat-icon>chevron_right</mat-icon>
+  </button>
+</div>

@@ -10,6 +10,11 @@ export class MenuComponent implements OnInit, OnChanges {
   @Input()
   user?: UserModel;
   @Input()
+  icon?: string;
+  @Input()
+  name?: string;
+
+  @Input()
   expanded: boolean = true;
 
   toggle: boolean = true;

@@ -1,0 +1,42 @@
+:host {
+  width: 100%;
+  min-height: 128px;
+  background: #F6F6F6;
+  padding: 24px;
+
+  border-radius: 0.5rem;
+  margin: 24px 24px 0;
+  font-family: "Times New Roman", sans-serif;
+
+  display: flex;
+  justify-content: space-between;
+
+  > button {
+    position: relative;
+    left: 12px;
+    bottom: 12px;
+  }
+}
+.name {
+  > small {
+    color: #888;
+  }
+}
+.description {
+  color: #888;
+}
+.indebment {
+  background: #F0F0F0;
+}
+.bar {
+  background: #880000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.value {
+  font-size: 6pt;
+  color: white;
+  opacity: 0.8;
+  margin: 0;
+}

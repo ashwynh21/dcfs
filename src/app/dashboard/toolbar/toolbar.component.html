@@ -1,11 +1,13 @@
-<div matRipple class="tw-flex title">
+<div matRipple class="tw-flex title" [routerLink]="['/dashboard']">
   <img class="tw-h-8 tw-mx-3" src="assets/icons/dcf_white.png" alt="DCF"/>
+
+  <p class="organization">{{(counsellor | async)?.name}}</p>
 </div>
 
 <div class="tw-mr-4 tw-flex tw-items-center">
   <button mat-icon-button class="search"><mat-icon [ngStyle]="{ color: 'white' }">search_outline</mat-icon></button>
 
   <div class="tw-ml-4 tw-h-8 tw-rounded-full tw-cursor-pointer" matRipple>
-    <img class="tw-h-8 tw-rounded-full" src="https://avatar.oxro.io/avatar.svg?name={{(user | async).fullname}}&length=1"/>
+    <img class="tw-h-8 tw-rounded-full" src="https://avatar.oxro.io/avatar.svg?name={{(user | async).username}}&length=1"/>
   </div>
 </div>

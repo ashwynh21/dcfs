@@ -1,0 +1,44 @@
+:host {
+  display: flex;
+  align-items: center;
+}
+
+.registration {
+  font-family: "Times New Roman", sans-serif;
+  margin-left: 24px;
+  min-height: 80%;
+
+  > p:first-child {
+    font-size: 10pt;
+    color: #DDD;
+    margin-bottom: 8px;
+    font-style: italic;
+    font-weight: lighter;
+  }
+  > p:nth-child(2) {
+    font-size: 16pt;
+    color: #455a64;
+
+    margin-bottom: 16px;
+  }
+
+  > div {
+    margin-top: 24px;
+    > p {
+      margin-right: 12px;
+      color: #455a64;
+      font-weight: bolder;
+    }
+    > p:last-child {
+      color: #DDDDDD;
+    }
+  }
+
+  > button {
+    cursor: pointer;
+    background: #455a64;
+    mat-icon {
+      color: white;
+    }
+  }
+}

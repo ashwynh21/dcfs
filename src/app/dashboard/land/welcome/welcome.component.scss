@@ -1,0 +1,42 @@
+
+:host {
+  align-self: center;
+  > div {
+    width: 100%;
+    min-height: 128px;
+    max-width: 820px;
+    background: #F6F6F6;
+    display: flex;
+    flex-flow: column;
+
+    padding: 32px;
+    font-family: "Times New Roman", sans-serif;
+  }
+}
+
+.description {
+  color: #888;
+}
+.shortcuts {
+  align-self: flex-end;
+  margin-top: 16px;
+  align-items: center;
+  width: 100%;
+  justify-content: space-between;
+
+  > div {
+    > button {
+      background: #455a64;
+      color: white;
+      margin-left: 12px;
+      cursor: pointer;
+    }
+    > mat-icon {
+      cursor: pointer;
+      margin-left: 12px;
+    }
+  }
+}
+.hidden {
+  display: none;
+}

@@ -1,0 +1,21 @@
+
+<!--
+Here we will display the general profile of the account, then we will display the number of clients that the
+account has and the number of counsellors that the account has
+-->
+
+<!--
+So let us start by displaying the counsellor profile
+-->
+<div class="tw-flex tw-items-center tw-overflow-x-hidden" *ngIf="(counsellor | async) && (user | async)">
+  <app-profile [user]="user | async" [counsellor]="counsellor | async"></app-profile>
+  <div class="tw-ml-12 tw-h-full vertical"></div>
+  <app-general [counsellor]="counsellor | async"></app-general>
+</div>
+<mat-divider class="tw-my-4 divider"></mat-divider>
+
+<!--
+okay now we need to display the welcome screen for first time users that is...if the account is only say 1 hour old
+we should show a welcome screen to help the user through the platform
+-->
+<app-welcome class="tw-rounded-md"></app-welcome>
