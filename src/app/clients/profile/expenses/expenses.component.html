@@ -1,7 +1,7 @@
 
 <div class="tw-p-6">
-  <p class="mat-h2">Monthly Expenses</p>
-  <div class="tw-mb-4"><mat-hint>Please enter all client monthly expenses below by clicking the add button to add more expenses</mat-hint></div>
+  <p class="mat-h2">Expenses Management ({{data.client.fullname}})</p>
+  <div class="tw-mb-4"><mat-hint>Manage client expenses with open discussions on methods to avail more funds with you client.</mat-hint></div>
 
   <div class="tw-flex">
     <form [formGroup]="debts">
@@ -18,7 +18,19 @@
         <button class="button" *ngIf="debts.controls['expenses']['controls'].indexOf(section) != debts.controls['expenses']['controls'].length - 1" mat-icon-button (click)="removeexpense(debts.controls['expenses']['controls'].indexOf(section))"><mat-icon color="warn">delete</mat-icon></button>
       </div>
     </form>
-    <div class="tw-flex tw-justify-center tw-items-center"></div>
+    <div class="tw-flex tw-justify-center tw-items-center tw-flex-1 tw-flex-col deductions">
+      <div class="tw-flex tw-justify-center tw-items-center income">
+        <button mat-button>Income Statement <mat-icon>get_app</mat-icon></button>
+      </div>
+      <p>Gross Income is <strong>{{data.client.income.gross | currency: 'E'}}</strong>, with statutory deductions of <strong>{{data.client.income.deductions | currency: 'E'}}</strong> and total debt of <strong>{{ totaldebts() | currency: 'E' }}</strong>.</p>
+
+      <p>Current Available amount:</p>
+      <p class="available">{{remainder() | currency: 'E'}}</p>
+      <p>(This after deductions of; Deductions, Total Expenses, and Debts.)</p>
+      <p>
+        <mat-icon color="primary" matTooltip="The goal for optimizing expenses is to maximize the available funds so as to allow room for re-scheduling of debts.">help_outline</mat-icon>
+      </p>
+    </div>
   </div>
   <div class="tw-flex tw-justify-between">
     <button  [disabled]="!debts.valid" mat-button class="update" (click)="submit()">update client expenses</button>

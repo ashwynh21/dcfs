@@ -77,7 +77,7 @@ Here we will list the expenses that the client has
       <p><strong>{{expense.amount | currency: 'E'}}</strong></p>
       <p *ngIf="expense.created">created on {{expense.created | date}}</p>
 
-      <button mat-icon-button><mat-icon>more_horiz</mat-icon></button>
+      <div></div>
     </div>
   </div>
   <div class="tw-flex tw-flex-col tw-flex-1 tw-justify-center tw-items-center instructions">
@@ -149,7 +149,7 @@ Here we will list the expenses that the client has
   </button>
 </mat-menu>
 <mat-menu #debts>
-  <button mat-menu-item >
+  <button mat-menu-item (click)="managedebts()">
     <mat-icon color="primary">add</mat-icon>
     <span>Manage Debt or Commitment</span>
   </button>

@@ -59,4 +59,16 @@ export class ExpensesComponent implements OnInit {
       }
     });
   }
+  totaldebts() {
+    return this.data.client.debts.reduce((a, e) => Number(a) + Number(e.monthly), 0);
+  }
+
+  remainder() {
+    const client = this.data.client;
+    const nett = Number(client.income.gross) - Number(client.income.deductions);
+    const expenses = this.debts.getRawValue().expenses.reduce((a, e) => Number(a) + Number(e.amount), 0);
+    const debts = this.data.client.debts.reduce((a, d) => a + d.monthly, 0);
+
+    return nett - expenses - debts;
+  }
 }

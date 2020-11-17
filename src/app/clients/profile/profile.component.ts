@@ -13,6 +13,7 @@ import { CreateComponent } from "../../dashboard/land/create/create.component";
 import { PersonalComponent } from "./personal/personal.component";
 import { DeleteComponent } from "../delete/delete.component";
 import { ExpensesComponent } from "./expenses/expenses.component";
+import { ComittmentsComponent } from "./comittments/comittments.component";
 
 @Component({
   selector: 'app-profile',
@@ -78,8 +79,8 @@ export class ProfileComponent implements OnInit {
   }
   reschedule() {
     this.dialog.open(ScheduleComponent, {
-      width: '37%',
-      height: '23%',
+      width: '68%',
+      height: '72%',
     });
   }
   create() {
@@ -117,6 +118,19 @@ export class ProfileComponent implements OnInit {
     this.client.subscribe(client => {
       if(client) {
         this.dialog.open(ExpensesComponent, {
+          width: '70%',
+          height: '80%',
+          data: {
+            client
+          }
+        })
+      }
+    }).unsubscribe();
+  }
+  managedebts() {
+    this.client.subscribe(client => {
+      if(client) {
+        this.dialog.open(ComittmentsComponent, {
           width: '70%',
           height: '80%',
           data: {

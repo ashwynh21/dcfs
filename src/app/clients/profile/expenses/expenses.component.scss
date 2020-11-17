@@ -10,3 +10,25 @@
   margin-left: 12px;
   margin-top: 8px;
 }
+.income {
+  > p {
+    margin: 0 0 0 12px;
+  }
+  > button {
+    color: white;
+    background: #455a64;
+  }
+}
+.deductions {
+  > p:nth-child(2) {
+    margin-top: 24px;
+    margin-left: 12px;
+    margin-right: 12px;
+    text-align: center;
+  }
+}
+.available {
+  font-size: 18pt;
+  color: #455a64;
+  font-weight: bold;
+}

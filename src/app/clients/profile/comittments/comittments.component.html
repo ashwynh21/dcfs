@@ -1,1 +1,37 @@
-<p>comittments works!</p>
+
+<div class="tw-p-8">
+  <p class="mat-h2">Debts & Commitments ({{data.client.fullname}})</p>
+  <div class="tw-mb-4"><mat-hint>Please enter all client debts outstanding as well as monthly commitments to be made.</mat-hint></div>
+
+  <div class="tw-flex">
+    <div>
+      <div class="tw-flex tw-items-start debt" *ngFor="let section of debts.controls['debts']['controls']">
+        <mat-form-field appearance="outline">
+          <mat-label>Name</mat-label>
+          <input matInput required [formControl]="section.get('name')" />
+        </mat-form-field>
+        <mat-form-field class="tw-mx-4 small" appearance="outline">
+          <mat-label>Account</mat-label>
+          <input class="tw-w-32" matInput required [formControl]="section.get('account')" />
+        </mat-form-field>
+        <mat-form-field appearance="outline" class="small">
+          <mat-label>Outstanding</mat-label>
+          <input matInput required [formControl]="section.get('outstanding')" />
+        </mat-form-field>
+        <mat-form-field class="tw-mx-4 small" appearance="outline">
+          <mat-label>Monthly</mat-label>
+          <input matInput required [formControl]="section.get('monthly')" />
+        </mat-form-field>
+        <button class="button" *ngIf="debts.controls['debts']['controls'].indexOf(section) == debts.controls['debts']['controls'].length - 1" mat-icon-button (click)="adddebt()"><mat-icon color="primary">add</mat-icon></button>
+        <button class="button" *ngIf="debts.controls['debts']['controls'].indexOf(section) != debts.controls['debts']['controls'].length - 1" mat-icon-button (click)="removedebt(debts.controls['debts']['controls'].indexOf(section))"><mat-icon color="warn">delete</mat-icon></button>
+      </div>
+    </div>
+    <div class="tw-flex-1"></div>
+  </div>
+
+  <div class="tw-flex tw-justify-between">
+    <button  [disabled]="!debts.valid" mat-button class="update" (click)="submit()">update debts</button>
+    <mat-error *ngIf="error | async">{{(error | async).message}}</mat-error>
+    <mat-progress-spinner mode="indeterminate" diameter="24" *ngIf="loading | async"></mat-progress-spinner>
+  </div>
+</div>
