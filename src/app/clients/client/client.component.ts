@@ -32,4 +32,7 @@ export class ClientComponent implements OnInit {
 
     return interpolator(percent);
   }
+  bar(percent) {
+    return percent > 1 ? 1 : percent
+  }
 }

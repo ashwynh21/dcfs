@@ -1,11 +1,13 @@
-import { Component, OnInit } from '@angular/core';
-import { MatDialogRef } from "@angular/material/dialog";
+import { Component, Inject, OnInit } from "@angular/core";
+import { MAT_DIALOG_DATA, MatDialogRef } from "@angular/material/dialog";
 import { FormArray, FormBuilder, FormGroup, Validators } from "@angular/forms";
-import { Observable } from "rxjs";
+import { BehaviorSubject, Observable } from "rxjs";
 import { Store } from "@ngrx/store";
 import { CreateClient, SelectErrorClient, SelectLoadingClient } from "../../../store/clients";
 import { SelectCounsellor } from "../../../store/counsellor";
 import { ClientModel } from "../../../models/client.model";
+import { scaleLinear } from "d3";
+import { UserModel } from "../../../models/user.model";
 
 @Component({
   selector: 'app-create',
@@ -22,13 +24,14 @@ export class CreateComponent implements OnInit {
   income: FormGroup;
   debts: FormGroup;
 
+  indebtedness: BehaviorSubject<number>;
+  schedule: BehaviorSubject<number>;
+
   constructor(private dialog: MatDialogRef<CreateComponent>,
               private store: Store,
               private builder: FormBuilder) { }
 
   ngOnInit(): void {
-    this.loading = this.store.select(SelectLoadingClient);
-    this.error = this.store.select(SelectErrorClient);
     /*
     * Here we initialize the forms with the form builder
     * */
@@ -60,52 +63,66 @@ export class CreateComponent implements OnInit {
       }),
       income: this.builder.group({
         statement: ['', [Validators.required]],
-        gross: ['', [Validators.required]],
-        deductions: ['', [Validators.required]],
+        gross: [0, [Validators.required]],
+        deductions: [0, [Validators.required]],
       }),
     });
     this.debts = this.builder.group({
       expenses: this.builder.array([
         this.builder.group({
-          name: ['', [Validators.required]],
-          amount: ['', [Validators.required]],
+          name: [''],
+          amount: [0],
         })
       ]),
       debts: this.builder.array([
         this.builder.group({
-          name: ['', [Validators.required]],
-          account: ['', [Validators.required]],
-          outstanding: ['', [Validators.required]],
-          monthly: ['', [Validators.required]]
+          name: [''],
+          account: [''],
+          outstanding: [0],
+          monthly: [0]
         })
       ])
-    })
+    });
+
+    this.loading = this.store.select(SelectLoadingClient);
+    this.error = this.store.select(SelectErrorClient);
+
+    this.indebtedness = new BehaviorSubject<number>(0);
+    this.schedule = new BehaviorSubject<number>(0);
   }
   addexpense() {
     (this.debts.controls['expenses']['controls'] as FormArray).push(
       this.builder.group({
-        name: ['', [Validators.required]],
-        amount: ['', [Validators.required]],
+        name: [''],
+        amount: [''],
       })
-    )
+    );
+
+    this.indebtedness.next(this.compute(this.income.getRawValue(), this.debts.getRawValue()));
+    this.schedule.next(this.scheduler(this.income.getRawValue(), this.debts.getRawValue()));
   }
   adddebt() {
     (this.debts.controls['debts']['controls'] as FormArray).push(
       this.builder.group({
-        name: ['', [Validators.required]],
-        account: ['', [Validators.required]],
-        outstanding: ['', [Validators.required]],
-        monthly: ['', [Validators.required]]
+        name: [''],
+        account: [''],
+        outstanding: [''],
+        monthly: ['']
       })
-    )
+    );
+    this.indebtedness.next(this.compute(this.income.getRawValue(), this.debts.getRawValue()));
+    this.schedule.next(this.scheduler(this.income.getRawValue(), this.debts.getRawValue()));
   }
   removeexpense(index) {
-    this.debts.controls['expenses']['controls'] = (this.debts.controls['expenses']['controls'] as Array<FormGroup>).splice(index, 1);
+    (this.debts.controls['expenses']['controls'] as Array<FormGroup>).splice(index, 1);
+    this.indebtedness.next(this.compute(this.income.getRawValue(), this.debts.getRawValue()));
+    this.schedule.next(this.scheduler(this.income.getRawValue(), this.debts.getRawValue()));
   }
   removedebt(index) {
-    this.debts.controls['debts']['controls'] = (this.debts.controls['debts']['controls'] as Array<FormGroup>).splice(index, 1);
+    (this.debts.controls['debts']['controls'] as Array<FormGroup>).splice(index, 1);
+    this.indebtedness.next(this.compute(this.income.getRawValue(), this.debts.getRawValue()));
+    this.schedule.next(this.scheduler(this.income.getRawValue(), this.debts.getRawValue()));
   }
-
 
   upload({ target }: Event) {
     const reader = new FileReader();
@@ -124,6 +141,8 @@ export class CreateComponent implements OnInit {
             ...this.bio.getRawValue(),
             ...this.income.getRawValue(),
             ...this.debts.getRawValue(),
+            created: new Date(),
+            updated: new Date(),
 
             counsellor: counsellor._id,
           } as ClientModel) as Partial<ClientModel>;
@@ -140,6 +159,39 @@ export class CreateComponent implements OnInit {
       });
   }
 
+  scheduler(income, debts): number {
+    console.log(Math.floor(Math.max(...debts.debts.map((d) => d.outstanding / d.monthly))));
+    return Math.floor(Math.max(...debts.debts.map((d) => d.outstanding / d.monthly)));
+  }
+
+  compute(income, debts): number {
+    const nett = (income.income.gross - income.income.deductions);
+    const expenses = debts.expenses.reduce((a, e) => {
+      return a + parseFloat(!CreateComponent.isNumeric(e.amount) ? 0 : e.amount)
+    }, 0);
+    const commitments = debts.debts.reduce((a, d) => {
+      return a + parseFloat(!CreateComponent.isNumeric(d.monthly) ? 0 : d.monthly)
+    }, 0);
+
+    const percentage = (nett /* this is the nett pay */
+      - (expenses + commitments)) /* this is total expense and debts */
+      / nett /* divide by the nett again */;
+
+    return 1 - percentage;
+  }
+
+  interpolate(percent: number): string {
+    const interpolator = scaleLinear<string>()
+      .domain([0, 0.5, 1])
+      .range(['#080', '#F80', '#800']);
+
+    return interpolator(percent);
+  }
+
+  /*
+  * We write a function to observe the form changes and pipe them into the indebtment bar
+  * */
+
   static clean(o) {
     return Object.entries(o)
       .reduce((a, [k, v]) => {
@@ -155,5 +207,14 @@ export class CreateComponent implements OnInit {
 
         return a;
       }, o.length ? [] : {});
+  }
+
+  static isNumeric(str) {
+    if (typeof str != "string") return false
+    return !isNaN(str as any) &&
+      !isNaN(parseFloat(str))
+  }
+  bar(percent) {
+    return percent > 1 ? 1 : percent
   }
 }

@@ -1,0 +1,33 @@
+
+<div>
+  <div class="tw-flex tw-justify-between tw-items-center">
+    <div class="tw-flex tw-items-center">
+      <mat-icon class="tw-mr-4 tw-mb-3">support_agent</mat-icon>
+      <p class="mat-h1">Debt Counsellors</p>
+    </div>
+
+    <div class="tw-flex filters">
+      <button mat-icon-button class="more" [matMenuTriggerFor]="options"><mat-icon>more_horiz</mat-icon></button>
+    </div>
+  </div>
+  <mat-divider></mat-divider>
+</div>
+
+<div class="tw-flex">
+  <div class="tw-flex-1 tw-flex tw-flex-wrap tw-items-center">
+    <app-counsellor matRipple *ngFor="let counsellor of (counsellors | async)" [user]="counsellor"></app-counsellor>
+  </div>
+  <div class="tw-w-64 tw-flex tw-flex-col statistics">
+    <div class="tw-rounded-md">
+      <p>{{(length | async)}}</p>
+      <p>Total Counsellors</p>
+    </div>
+  </div>
+</div>
+
+<mat-menu #options>
+  <button mat-menu-item (click)="enroll()">
+    <mat-icon color="primary">add</mat-icon>
+    <span>Add Counsellor</span>
+  </button>
+</mat-menu>

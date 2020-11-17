@@ -1,0 +1,115 @@
+@import '../clients.component.scss';
+
+:host {
+  font-family: "Times New Roman", sans-serif;
+}
+.name {
+  font-family: "Times New Roman", sans-serif;
+  font-size: 14pt;
+  margin-left: 8px;
+}
+.email {
+  font-size: 10pt;
+  color: #888;
+  font-style: italic;
+}
+.details {
+  flex: 2;
+  margin-bottom: 16px;
+
+  > p {
+    font-size: 10pt;
+    font-style: italic;
+    color: #888;
+  }
+}
+.pin {
+  font-size: 8pt;
+  color: #888;
+
+}
+
+.indebment {
+  position: relative;
+  background: #F0F0F0;
+}
+.bar {
+  background: #880000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.value {
+  font-size: 6pt;
+  color: white;
+  opacity: 0.8;
+  margin: 0;
+
+  position: absolute;
+  left: 0;
+  right: 0;
+
+  text-align: center;
+}
+.expense.title {
+  margin-top: 12px;
+
+  > p:first-child {
+    font-size: 16pt;
+  }
+  > p:nth-child(2) {
+    color: #888;
+    margin-left: 12px;
+    margin-top: 4px;
+  }
+}
+.expense.row {
+  background: #F8F8F8;
+  border-radius: 8px;
+  cursor: pointer;
+
+  padding: 8px 12px;
+  margin: 8px;
+
+  > p {
+    margin: 0;
+  }
+  > mat-divider {
+    flex: 1;
+  }
+  > p:first-child {
+    margin-right: 16px;
+  }
+  > p:not(:first-child) {
+    flex: 1;
+    margin: 0 16px;
+  }
+}
+.instructions {
+  font-size: 10pt;
+  color: #888;
+  min-height: 100%;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  > p {
+    font-size: 10pt;
+    color: #888;
+    width: 50%;
+  }
+}
+.button {
+  background: #455a64;
+  color: white;
+}
+.download {
+  cursor: pointer;
+  position: relative;
+  top: 8px;
+}
+.marital {
+  font-size: 10pt;
+  color: #888;
+}

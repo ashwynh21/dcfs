@@ -12,12 +12,15 @@ import { RouterModule } from '@angular/router';
 import { CounsellorEffect, MetaReducers, Reducers } from "./store";
 
 import routes from './app.routes';
+import configuration from './configurations/configuration.json';
+
 import { HttpClientModule } from '@angular/common/http';
 import { HashLocationStrategy, LocationStrategy } from '@angular/common';
 import { ServicesModule } from './services/services.module';
 import { GuardsModule } from "./guards/guards.module";
 import { UserEffect } from "./store/user";
 import { ClientEffect } from "./store/clients";
+import { SocketIoConfig, SocketIoModule } from "ngx-socket-io";
 
 @NgModule({
   declarations: [
@@ -44,6 +47,10 @@ import { ClientEffect } from "./store/clients";
 
     RouterModule.forRoot(routes),
     StoreRouterConnectingModule.forRoot(),
+    SocketIoModule.forRoot({
+      url: configuration.socket,
+      options: {}
+    } as SocketIoConfig),
 
     !environment.production ? StoreDevtoolsModule.instrument() : [],
     StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: environment.production }),

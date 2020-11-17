@@ -19,6 +19,15 @@ export default [
             '../clients/clients.module'
             )
             .then(client => client.ClientsModule)
+      },
+      {
+        path: 'counsellors',
+        loadChildren: () =>
+          import(
+            /* webpackChunkName: "counsellors" */
+            '../counsellors/counsellors.module'
+            )
+            .then(counsellors => counsellors.CounsellorsModule)
       }
     ]
   },

@@ -1,12 +1,12 @@
-import { createEntityAdapter, EntityAdapter, EntityState } from "@ngrx/entity";
+import { createEntityAdapter, EntityAdapter, EntityState, Update } from "@ngrx/entity";
 import { UserModel } from "../../models/user.model";
 import { createFeatureSelector, createReducer, createSelector, on } from "@ngrx/store";
 import {
   AuthenticateUser,
-  AuthenticateUserCookie, CompleteCreateUser, CompleteGetUsers,
-  CompleteStateUser, CompleteUser, CreateUser,
+  AuthenticateUserCookie, CompleteCreateUser, CompleteGetUsers, CompleteRemoveUser,
+  CompleteStateUser, CompleteUpdateUser, CompleteUser, CreateUser,
   ErrorUser, GetUsers, NoAuthenticate, RecoverUser, RefreshUser,
-  RemoveAuthenticate
+  RemoveAuthenticate, RemoveUser, UpdateUser
 } from "./user.action";
 
 export interface UserState extends EntityState<UserModel> {
@@ -51,6 +51,10 @@ const Reducer = createReducer<UserState>(
     ...state,
     loading: true
   })),
+  on(UpdateUser, (state) => ({
+    ...state,
+    loading: true,
+  })),
   on(RecoverUser, (state) => ({
     ...state,
     loading: true
@@ -62,6 +66,10 @@ const Reducer = createReducer<UserState>(
   on(GetUsers, (state) => ({
     ...state,
     loading: true,
+  })),
+  on(RemoveUser, (state) => ({
+    ...state,
+    loading: false,
   })),
 
   on(ErrorUser, (state, action) => ({
@@ -89,6 +97,17 @@ const Reducer = createReducer<UserState>(
     loading: false,
     length: action.length,
     page: state.page + 1,
+  })),
+  on(CompleteUpdateUser, (state, action) => UserAdapter.updateOne({
+    id: action._id,
+    changes: action
+  }, {
+    ...state,
+    loading: false
+  })),
+  on(CompleteRemoveUser, (state, action) => UserAdapter.removeOne(action._id, {
+    ...state,
+    loading: false
   })),
 
   on(RemoveAuthenticate, (state) => ({

@@ -1,0 +1,156 @@
+
+<div>
+  <div class="tw-flex tw-justify-between tw-items-center" *ngIf="client | async">
+    <div class="tw-flex tw-items-center">
+      <mat-icon class="tw-mr-4 tw-mb-3">work_outline</mat-icon>
+      <p class="mat-h1 two-cursor-pointer" [routerLink]="['../../clients']">Client Management</p>
+
+      <mat-icon class="tw-ml-2 tw-mb-2">chevron_right</mat-icon>
+      <p class="mat-2 name tw-flex tw-items-center">
+        <img class="tw-h-6 tw-mr-2 tw-rounded-full" src="https://avatar.oxro.io/avatar.svg?name={{(client | async)?.fullname}}&length=1"/>
+        {{(client | async)?.fullname}}
+      </p>
+    </div>
+
+    <div class="tw-flex filters">
+      <button mat-icon-button class="more" [matMenuTriggerFor]="options"><mat-icon>more_horiz</mat-icon></button>
+    </div>
+  </div>
+  <mat-divider></mat-divider>
+
+  <!--
+  Here we need to then add in the client information and display the necessary information..
+  -->
+  <div class="tw-flex tw-items-center tw-py-8 tw-justify-between tw-w-3/4" *ngIf="client | async">
+    <img class="tw-h-32 tw-rounded-full" src="https://avatar.oxro.io/avatar.svg?name={{(client | async)?.fullname}}&length=1"/>
+    <div class="tw-flex tw-flex-col tw-flex-1">
+      <div class="tw-flex tw-justify-between tw-items-center">
+        <div class="tw-flex tw-flex-col tw-ml-4 tw-flex-1">
+          <p class="mat-h4 email">{{(client | async)?.mobile}} <strong>or</strong> {{(client | async)?.email}}</p>
+          <p class="mat-h2">{{(client | async)?.fullname}} <small class="pin">({{(client | async)?.pin}})</small></p>
+          <p class="mat-h5">{{(client | async)?.created}}</p>
+        </div>
+        <div class="details">
+          <p>
+            Currently employed at {{(client | async)?.employment.name}} earning an income of {{(client | async)?.income.gross | currency: 'E'}} <mat-icon class="download" color="primary" matTooltip="click to download income statement">get_app</mat-icon>. From gross, the client
+            pays {{(client | async).income.deductions | currency: 'E'}} in statutory deductions.
+          </p>
+          <p>This client is currently under {{(client | async)?.state}}</p>
+        </div>
+      </div>
+
+      <div class="tw-w-full tw-h-4 indebment tw-rounded-md tw-ml-4">
+        <div class="bar tw-h-full tw-rounded-md" style="width:{{bar(compute(client | async)) | percent}}; background:{{interpolate(bar(compute(client | async)))}}"><p class="value">{{compute(client | async) | percent}}</p></div>
+      </div>
+    </div>
+  </div>
+
+  <!--
+  Here we should add the remaining profile information that would be required for the display
+  -->
+  <div *ngIf="client | async">
+    <p>Physical Address : <small>{{(client | async).physical}}</small></p>
+    <p class="marital">{{(client | async).fullname}} is {{marital(client | async)}}</p>
+  </div>
+
+  <mat-divider></mat-divider>
+</div>
+<!--
+Expenses will go here-->
+<div class="tw-flex tw-items-center tw-justify-between">
+  <div class="tw-flex tw-items-center expense title" *ngIf="client | async">
+    <p>Expenses - </p>
+    <p> total monthly expenses add up to <strong>{{expenses(client | async) | currency: 'E'}}</strong></p>
+  </div>
+  <button mat-icon-button [matMenuTriggerFor]="expense"><mat-icon>more_vert</mat-icon></button>
+</div>
+<!--
+Here we will list the expenses that the client has
+-->
+<mat-divider></mat-divider>
+
+<div class="tw-my-4 tw-flex" *ngIf="client | async">
+  <div class="tw-flex-1">
+    <div *ngFor="let expense of (client | async).expenses" class="tw-flex tw-justify-between tw-items-center tw-flex-1 row expense" matRipple>
+      <p class="mat-h3">{{expense.name}}</p>
+      <mat-divider></mat-divider>
+      <p><strong>{{expense.amount | currency: 'E'}}</strong></p>
+      <p *ngIf="expense.created">created on {{expense.created | date}}</p>
+
+      <button mat-icon-button><mat-icon>more_horiz</mat-icon></button>
+    </div>
+  </div>
+  <div class="tw-flex tw-flex-col tw-flex-1 tw-justify-center tw-items-center instructions">
+    <!--
+    Here we put in the instructions needed to guide the user to get the optimization above the usual boundaries.
+    -->
+    <p>
+      To better optimize the client rescheduling process please discuss with your client to make available more
+      funds to handle the client debts. With this said, adjusting the expenses will make better room for the
+      optimization algorithm.
+    </p>
+    <mat-icon color="primary">help_outline</mat-icon>
+  </div>
+</div>
+
+<mat-divider></mat-divider>
+
+<div class="tw-flex tw-items-center tw-justify-between" *ngIf="client | async">
+  <div class="tw-flex tw-items-center expense title">
+    <p>Debts & Commitments - </p>
+    <p> The total outstanding amount is <strong>{{outstanding(client | async) | currency: 'E'}}</strong>. Under the current schedule this client will require counselling for <strong>{{time(client | async)}} months</strong>.</p>
+  </div>
+  <button mat-icon-button [matMenuTriggerFor]="debts"><mat-icon>more_vert</mat-icon></button>
+</div>
+<mat-divider></mat-divider>
+<div class="tw-my-4 tw-flex" *ngIf="client | async">
+  <div class="tw-flex-1">
+    <div *ngFor="let debt of (client | async).debts" class="tw-flex tw-justify-between tw-items-center row expense" matRipple>
+
+      <p class="mat-h3">{{debt.name}}</p>
+      <mat-divider></mat-divider>
+      <p><strong>{{debt.outstanding | currency: 'E'}}</strong></p>
+      <p><strong>{{debt.monthly | currency: 'E'}}</strong></p>
+
+      <button mat-icon-button><mat-icon>more_horiz</mat-icon></button>
+    </div>
+  </div>
+
+  <div class="tw-flex tw-flex-col tw-flex-1 tw-justify-center tw-items-center instructions">
+    <!--
+    Here we put in the instructions needed to guide the user to get the optimization above the usual boundaries.
+    -->
+    <p>
+      Click on reschedule to adjust debts to fit the client nett income.
+    </p>
+    <button mat-button class="button" (click)="reschedule()">re-schedule</button>
+  </div>
+</div>
+<mat-divider></mat-divider>
+
+<mat-menu #options>
+  <button mat-menu-item (click)="create()">
+    <mat-icon color="primary">add</mat-icon>
+    <span>Add Client</span>
+  </button>
+  <button mat-menu-item (click)="personal()">
+    <mat-icon color="primary">edit</mat-icon>
+    <span>Edit Client</span>
+  </button>
+  <button mat-menu-item (click)="remove()">
+    <mat-icon color="primary">delete</mat-icon>
+    <span>Remove Client</span>
+  </button>
+</mat-menu>
+<mat-menu #expense>
+  <button mat-menu-item (click)="manageexpeneses()">
+    <mat-icon color="primary">add</mat-icon>
+    <span>Manage Expenses</span>
+  </button>
+</mat-menu>
+<mat-menu #debts>
+  <button mat-menu-item >
+    <mat-icon color="primary">add</mat-icon>
+    <span>Manage Debt or Commitment</span>
+  </button>
+</mat-menu>

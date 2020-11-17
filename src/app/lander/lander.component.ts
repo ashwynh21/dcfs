@@ -18,7 +18,7 @@ export class LanderComponent implements AfterViewInit {
       .subscribe(user => {
         if(user) {
           this.dialog.open(AlreadyComponent, {
-            width: '512px',
+            width: '40%',
             data: {user}
           });
         } else {

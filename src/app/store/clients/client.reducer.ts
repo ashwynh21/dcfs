@@ -1,7 +1,15 @@
 import { createEntityAdapter, EntityAdapter, EntityState } from "@ngrx/entity";
 import { ClientModel } from "../../models/client.model";
 import { createFeatureSelector, createReducer, createSelector, on } from "@ngrx/store";
-import { CompleteClients, CompleteCreateClient, CreateClient, ErrorClients, GetClients } from "./client.action";
+import {
+  CompleteClients,
+  CompleteCreateClient, CompleteRemoveClient,
+  CompleteUpdateClient,
+  CreateClient,
+  ErrorClients,
+  GetClients, RemoveClient,
+  UpdateClient
+} from "./client.action";
 
 
 export interface ClientState extends EntityState<ClientModel> {
@@ -36,6 +44,15 @@ const Reducer = createReducer<ClientState>(
     ...state,
     loading: true,
   })),
+  on(UpdateClient, (state) => ({
+    ...state,
+    loading: true
+  })),
+  on(RemoveClient, (state) => ({
+    ...state,
+    loading: true,
+  })),
+
   on(CompleteClients, (state, action) => ClientAdapter.addMany(action.clients, {
     ...state,
     loading: false,
@@ -47,6 +64,18 @@ const Reducer = createReducer<ClientState>(
     loading: false,
     length: state.length + 1,
   })),
+  on(CompleteUpdateClient, (state, action) => ClientAdapter.updateOne({
+    id: action._id,
+    changes: action
+  }, {
+    ...state,
+    loading: false
+  })),
+  on(CompleteRemoveClient, (state, action) => ClientAdapter.removeOne(action._id, {
+    ...state,
+    loading: false,
+  })),
+
   on(ErrorClients, (state, action) => ({
     ...state,
     loading: false,

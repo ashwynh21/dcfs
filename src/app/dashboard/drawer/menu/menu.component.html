@@ -3,13 +3,13 @@
 
   <mat-divider class="tw-w-10/12 tw-self-center"></mat-divider>
 
-  <div *ngIf="user" class="tw-flex tw-self-center tw-rounded tw-items-center tw-justify-between tw-w-11/12 tw-p-2 tw-mt-3 tw-mb-0 tw-cursor-pointer" matRipple>
+  <div *ngIf="user" class="tw-flex tw-self-center tw-rounded tw-items-center tw-justify-between tw-w-11/12 tw-p-2 tw-mt-3 tw-mb-0 tw-cursor-pointer tw-overflow-hidden" matRipple>
     <img class="tw-h-8 tw-mr-2 tw-rounded-full" src="https://avatar.oxro.io/avatar.svg?name={{user.username}}&length=1"/>
     <p class="name {{expanded ? 'expand' : 'collapse'}}">{{user.username}}</p>
 
     <mat-icon class="tw-justify-self-end {{toggle ? 'open' : 'close'}}" color="primary" (click)="toggle = !toggle">keyboard_arrow_down</mat-icon>
   </div>
-  <div *ngIf="user == undefined" class="tw-flex tw-self-center tw-rounded tw-items-center tw-justify-between tw-w-11/12 tw-p-2 tw-mt-3 tw-mb-0 tw-cursor-pointer" matRipple>
+  <div *ngIf="user == undefined" class="tw-flex tw-self-center tw-rounded tw-items-center tw-justify-between tw-w-11/12 tw-p-2 tw-mt-3 tw-mb-0 tw-cursor-pointer tw-overflow-hidden" matRipple>
     <mat-icon color="primary" class="{{expanded ? 'expand' : 'collapse'}} icon">{{icon}}</mat-icon>
     <p class="name {{expanded ? 'expand' : 'collapse'}}">{{name}}</p>
 

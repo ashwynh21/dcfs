@@ -14,15 +14,13 @@ Title goes here
       <p class="mat-h1">Client Management</p>
     </div>
 
-    <button mat-icon-button class="more" [matMenuTriggerFor]="options"><mat-icon>more_horiz</mat-icon></button>
+    <div class="tw-flex filters">
+      <button mat-button class="more tw-mr-4">Filter</button>
+      <button mat-icon-button class="more" [matMenuTriggerFor]="options"><mat-icon>more_horiz</mat-icon></button>
+    </div>
   </div>
   <mat-divider></mat-divider>
 </div>
-
-<!--
-Statistics go here
--->
-
 <!--
 Client list will go here...There may be some content to put on the right end as a panel since it matches the consistency
 of the home page we are okay with reserving the space
@@ -36,12 +34,25 @@ of the home page we are okay with reserving the space
     <!--
     so in here we will run an iteration on client objects to render in a sub component...
     -->
-    <app-client [client]="client" *ngFor="let client of (clients | async)"></app-client>
+    <app-client [client]="client" *ngFor="let client of (clients | async)" [routerLink]="[client._id]"></app-client>
   </div>
   <!--
   And the side bar will go here
   -->
-  <div class="tw-w-64"></div>
+  <div class="tw-w-64 statistics">
+    <!--
+    Let us put the total number of clients here
+    -->
+
+    <div class="tw-rounded-md">
+      <p>{{(length | async)}}</p>
+      <p>Total Clients</p>
+    </div>
+    <div class="tw-rounded-md">
+      <p>{{indebtment | async | percent}}</p>
+      <p>Average Debt</p>
+    </div>
+  </div>
 </div>
 
 <mat-menu #options>

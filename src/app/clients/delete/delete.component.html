@@ -1,0 +1,14 @@
+<p>Remove Client</p>
+<p>You are about to remove a client from counselling, this will not remove the accounting history or the device information that is tied to the client</p>
+<p>please confirm user removal by entering the client email: <strong>{{data.client.email}}</strong> into the field below</p>
+
+<form [formGroup]="confirm">
+  <mat-form-field appearance="outline">
+    <mat-label>Email Address</mat-label>
+    <input matInput formControlName="confirm" required>
+  </mat-form-field>
+  <div>
+    <button mat-button (click)="submit()">confirm</button>
+    <mat-progress-spinner *ngIf="loading | async" mode="indeterminate" diameter="24" color="warn"></mat-progress-spinner>
+  </div>
+</form>

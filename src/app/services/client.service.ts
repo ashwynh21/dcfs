@@ -23,12 +23,25 @@ export class ClientService {
       }
     })
   }
-
   public create(data: Partial<ClientModel>): Observable<Response> {
     return this.http.post(`${configuration.root}${this.name}`, data, {
       headers: {
         'Content-Type': 'application/json'
       }
     });
+  }
+  public update(data: Partial<ClientModel>): Observable<Response> {
+    return this.http.put(`${configuration.root}${this.name}`, data, {
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    });
+  }
+  public delete(data: Partial<ClientModel>): Observable<Response> {
+    return this.http.delete(`${configuration.root}${this.name}?${CounsellorService.querystring(CounsellorService.flatten(data))}`, {
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    })
   }
 }

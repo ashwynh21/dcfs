@@ -20,7 +20,7 @@ export class WelcomeComponent implements OnInit {
         if(user) {
           const duration = ((new Date).getTime() - (new Date(user.created)).getTime()) / 1000 / 60;
 
-          this.dismiss = duration < 2100;
+          this.dismiss = duration < 210000000;
         }
       })
   }
@@ -33,14 +33,14 @@ export class WelcomeComponent implements OnInit {
   }
   create() {
     this.dialog.open(CreateComponent, {
-      width: '1000px',
-      height: '520px'
+      width: '64%',
+      height: '66%'
     });
   }
   enroll() {
     this.dialog.open(EnrollComponent, {
-      width: '900px',
-      height: '520px'
+      width: '50%',
+      height: '64%',
     });
   }
 }

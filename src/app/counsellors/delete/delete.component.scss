@@ -1,0 +1,47 @@
+:host {
+  padding: 24px;
+  display: flex;
+  flex-flow: column;
+
+  justify-content: center;
+  align-items: center;
+
+  > p:first-child {
+    font-size: 14pt;
+    color: #0008;
+    align-self: flex-start;
+  }
+  > p:nth-child(2) {
+    font-size: 8pt;
+    color: #0004;
+  }
+  > p:nth-child(3) {
+    font-size: 8pt;
+    color: #F008;
+
+    > strong {
+      ::selection { background: transparent; }
+      ::-moz-selection { background: transparent; }
+    }
+  }
+
+  > form {
+    display: flex;
+    flex-flow: column;
+    align-items: flex-start;
+
+    > div {
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+
+      > button {
+        background: #DB4437;
+        color: white;
+      }
+      > mat-progress-spinner {
+        margin-left: 12px;
+      }
+    }
+  }
+}

@@ -9,6 +9,8 @@ export enum UserActionTypes {
   RemoveAuthenticate = '[User]: RemoveAuthenticate',
   NoAuthenticate = '[User]: NoAuthenticate',
   CreateUser = '[User]: CreateUser',
+  UpdateUser = '[User]: UpdateUser',
+  RemoveUser = '[User]: RemoveUser',
   RecoverUser = '[User]: RecoverUser',
   GetUsers = '[User]: GetUsers',
   /*
@@ -21,6 +23,8 @@ export enum UserActionTypes {
   CompleteCreateUser = '[User]: CompleteCreateUser',
   CompleteStateUser = '[User]: CompleteStateUser',
   CompleteGetUsers = '[User]: CompleteGetUsers',
+  CompleteUpdateUser = '[User]: CompleteUpdateUser',
+  CompleteRemoveUser = '[User]: CompleteRemoveUser'
 }
 
 export const AuthenticateUser = createAction(UserActionTypes.AuthenticateUser,
@@ -32,6 +36,10 @@ export const GetUsers = createAction(UserActionTypes.GetUsers,
   props<Partial<UserModel>>());
 
 export const CreateUser = createAction(UserActionTypes.CreateUser,
+  props<Partial<UserModel>>());
+export const UpdateUser = createAction(UserActionTypes.UpdateUser,
+  props<Partial<UserModel>>());
+export const RemoveUser = createAction(UserActionTypes.RemoveUser,
   props<Partial<UserModel>>());
 
 export const RecoverUser = createAction(UserActionTypes.RecoverUser,
@@ -48,3 +56,7 @@ export const CompleteStateUser = createAction(UserActionTypes.CompleteStateUser,
   props<UserModel>());
 export const CompleteGetUsers = createAction(UserActionTypes.CompleteGetUsers,
   props<{users: Array<UserModel>, length: number}>());
+export const CompleteUpdateUser = createAction(UserActionTypes.CompleteUpdateUser,
+  props<Partial<UserModel>>());
+export const CompleteRemoveUser = createAction(UserActionTypes.CompleteRemoveUser,
+  props<Partial<UserModel>>());

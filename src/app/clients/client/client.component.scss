@@ -10,6 +10,7 @@
 
   display: flex;
   justify-content: space-between;
+  cursor: pointer;
 
   > button {
     position: relative;
@@ -26,6 +27,7 @@
   color: #888;
 }
 .indebment {
+  position: relative;
   background: #F0F0F0;
 }
 .bar {
@@ -39,4 +41,9 @@
   color: white;
   opacity: 0.8;
   margin: 0;
+  position: absolute;
+  left: 0;
+  right: 0;
+
+  text-align: center;
 }

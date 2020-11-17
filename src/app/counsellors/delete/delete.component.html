@@ -1,0 +1,14 @@
+<p>Remove Counsellor</p>
+<p>You are about to remove a user from the system, this will not remove the accounting history or the device information that is tied to the user</p>
+<p>please confirm user removal by entering the username: <strong>{{data.user.username}}</strong> into the field below</p>
+
+<form [formGroup]="confirm">
+  <mat-form-field appearance="outline">
+    <mat-label>Username</mat-label>
+    <input matInput formControlName="confirm" required>
+  </mat-form-field>
+  <div>
+    <button mat-button (click)="submit()">confirm</button>
+    <mat-progress-spinner *ngIf="loading | async" mode="indeterminate" diameter="24" color="warn"></mat-progress-spinner>
+  </div>
+</form>

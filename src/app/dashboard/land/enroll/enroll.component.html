@@ -4,5 +4,44 @@
   <div></div>
 </div>
 
-<div class="tw-h-full">
+<div class="tw-h-full tw-p-4">
+  <form [formGroup]="user" class="tw-flex tw-flex-col">
+    <p class="mat-h3">{{data?.user ? 'Update User' : 'Create User'}}</p>
+    <mat-form-field appearance="outline" class="tw-w-2/3">
+      <mat-label>Email Address</mat-label>
+      <input matInput formControlName="username" type="email"/>
+      <mat-hint>Please enter new users' email address</mat-hint>
+    </mat-form-field>
+    <mat-form-field appearance="outline" class="tw-w-2/3 tw-mt-2">
+      <mat-label>Full Name</mat-label>
+      <input matInput formControlName="fullname"/>
+      <mat-hint>Please enter users' Full Name.</mat-hint>
+    </mat-form-field>
+
+    <div class="tw-flex tw-mt-4">
+      <mat-form-field appearance="outline">
+        <mat-label>Password</mat-label>
+        <input matInput formControlName="password" type="password"/>
+      </mat-form-field>
+      <mat-form-field appearance="outline" class="tw-ml-8">
+        <mat-label>Confirm Password</mat-label>
+        <input matInput formControlName="confirm" type="password"/>
+      </mat-form-field>
+    </div>
+    <mat-hint>Please enter users' password. user password should be secure.</mat-hint>
+
+    <mat-form-field appearance="outline" class="tw-w-1/2 tw-mt-4">
+      <mat-label>Select User Access</mat-label>
+      <mat-select formControlName="access" value="admin">
+        <mat-option value="admin">Administrator</mat-option>
+        <mat-option value="counsellor">Counsellor</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <div class="tw-flex tw-justify-between">
+      <button class="button" mat-button [disabled]="!user.valid" (click)="data?.user ? update() : create()">{{data?.user ? 'update' : 'create'}}</button>
+      <mat-error *ngIf="error | async">{{(error | async).message}}</mat-error>
+      <mat-progress-spinner mode="indeterminate" diameter="24" *ngIf="loading | async"></mat-progress-spinner>
+    </div>
+  </form>
 </div>

@@ -4,7 +4,12 @@ form to the right of the content space that we have to work with
 -->
 <div class="tw-h-full tw-relative">
   <img class="tw-h-full tw-absolute tw-top-0 tw-bottom-0 tw-fixed" src="assets/images/contract.jpg" alt="contract"/>
-  <div></div>
+  <div class="tw-flex tw-flex-col">
+    <div class="tw-flex-1 tw-w-3 tw-mt-12 indebment tw-rounded-md tw-flex tw-justify-end tw-flex-col">
+      <div class="bar tw-w-full tw-rounded-md" style="height:{{bar(indebtedness | async) | percent}}; background:{{interpolate(bar(indebtedness | async))}}"></div>
+    </div>
+    <p class="value" style="color:{{interpolate(indebtedness | async)}}">{{indebtedness | async | percent}} indebted</p>
+  </div>
 </div>
 
 <div class="tw-h-full">
@@ -176,6 +181,10 @@ form to the right of the content space that we have to work with
             <button class="button" *ngIf="debts.controls['debts']['controls'].indexOf(section) == debts.controls['debts']['controls'].length - 1" mat-icon-button (click)="adddebt()"><mat-icon>add</mat-icon></button>
             <button class="button" *ngIf="debts.controls['debts']['controls'].indexOf(section) != debts.controls['debts']['controls'].length - 1" mat-icon-button (click)="removedebt(debts.controls['debts']['controls'].indexOf(section))"><mat-icon>delete</mat-icon></button>
           </div>
+
+          <!--here we tell the counsellor how long the client will need to be under the counsellor witht the clients current payment schedule
+          -->
+          <div><mat-hint *ngIf="(schedule | async) > 0">{{bio.get('fullname').value}} will require {{schedule | async}} months to complete paying all debts.</mat-hint></div>
         </div>
 
         <div class="tw-flex tw-justify-between tw-mt-12">

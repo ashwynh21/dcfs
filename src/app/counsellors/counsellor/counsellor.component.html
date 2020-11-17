@@ -1,0 +1,24 @@
+
+<img class="tw-h-24 tw-rounded-full" src="https://avatar.oxro.io/avatar.svg?name={{user.username}}&length=1"/>
+
+<div class="tw-flex tw-flex-col tw-ml-4">
+  <p class="description">{{user.username}}</p>
+  <p class="mat-h2">{{user.fullname}}</p>
+  <p class="date">{{user.created | date}}</p>
+  <div class="access">
+    <p *ngFor="let access of user.access">{{access}}</p>
+  </div>
+</div>
+
+<button mat-icon-button class="more" [matMenuTriggerFor]="options"><mat-icon>more_horiz</mat-icon></button>
+
+<mat-menu #options>
+  <button mat-menu-item (click)="edit()">
+    <mat-icon color="primary">edit</mat-icon>
+    <span>Edit Counsellor</span>
+  </button>
+  <button mat-menu-item (click)="remove()">
+    <mat-icon color="primary">delete</mat-icon>
+    <span>Remove Counsellor</span>
+  </button>
+</mat-menu>

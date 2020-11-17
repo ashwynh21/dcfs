@@ -61,35 +61,21 @@ export class UserService {
   }
 
   public update(data: UserModel): Observable<Response> {
-    if (this.cookies.check('user')) {
-      const user: UserModel = JSON.parse(this.cookies.get('user'));
-
-      return this.http.put(`${configuration.root}${this.name}`,
-        {...data, token: user.token},
-        {
-          headers: {
-            'Content-Type': 'application/json'
-          }
-        }).pipe(
-          map((response: Response) => {
-            this.cookies.set('user', JSON.stringify(response.payload));
-
-            return response;
-          })
-      );
-    }
-  }
-
-  public delete(data: {user: string}): Observable<Response> {
-    if (this.cookies.check('user')) {
-      const user: UserModel = JSON.parse(this.cookies.get('user'));
-
-      return this.http.delete(`${configuration.root}${this.name}?token=${user.token}&user=${data.user}`, {
+    return this.http.put(`${configuration.root}${this.name}`,
+      data,
+      {
         headers: {
           'Content-Type': 'application/json'
         }
       });
-    }
+  }
+
+  public delete(user: UserModel): Observable<Response> {
+    return this.http.delete(`${configuration.root}${this.name}?_id=${user._id}`, {
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    });
   }
 
   public read(data: Partial<UserModel & {page: number, size: number, length: number }>): Observable<Response> {

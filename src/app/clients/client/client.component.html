@@ -11,10 +11,11 @@
   <!--
   Here we display the indebtment
   -->
-  <div class="tw-mt-12 tw-mb-2"><p class="description"><small>indebtedness</small></p></div>
+  <div class="tw-mt-12 tw-mb-2 tw-flex tw-items-center tw-justify-between">
+    <p class="description"><small>indebtedness</small></p>
+    <p class="description"><small>{{client.state}}</small></p>
+  </div>
   <div class="tw-w-4/5 tw-h-4 indebment tw-rounded-md">
-    <div class="bar tw-h-full tw-rounded-md" style="width:{{compute() | percent}}; background:{{interpolate(compute())}}"><p class="value">{{compute() | percent}}</p></div>
+    <div class="bar tw-h-full tw-rounded-md" style="width:{{bar(compute()) | percent}}; background:{{interpolate(bar(compute()))}}"><p class="value">{{compute() | percent}}</p></div>
   </div>
 </div>
-
-<button mat-icon-button><mat-icon>more_vert</mat-icon></button>

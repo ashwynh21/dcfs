@@ -5,3 +5,33 @@
 .more {
   margin-bottom: 6px;
 }
+
+.statistics {
+  font-family: "Times New Roman", sans-serif;
+
+  > div {
+    margin-top: 24px;
+    padding: 24px;
+    display: flex;
+    flex-flow: column;
+    align-items: center;
+
+    background: #f8f8f8;
+
+    > p:first-child {
+      font-size: 20pt;
+    }
+    > p:nth-child(2) {
+      margin-top: 16px;
+      margin-bottom: 0;
+    }
+  }
+}
+.filters {
+  > button:first-child {
+    margin-right: 12px;
+  }
+}
+.title {
+  margin: 0;
+}

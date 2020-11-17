@@ -1,12 +1,12 @@
 import { Injectable } from "@angular/core";
-import { AccessService, RefreshService, UserService } from "../../services";
+import { AccessService, RefreshService, UserService, SocketService } from "../../services";
 import { Actions, createEffect, ofType } from "@ngrx/effects";
 import { catchError, exhaustMap, map, mergeMap } from "rxjs/operators";
 import { UserModel } from "../../models/user.model";
 import { Observable, of } from "rxjs";
 import { Action, Store } from "@ngrx/store";
 import {
-  CompleteCreateUser, CompleteGetUsers, CompleteStateUser, CompleteUser, ErrorUser,
+  CompleteCreateUser, CompleteGetUsers, CompleteRemoveUser, CompleteStateUser, CompleteUpdateUser, CompleteUser, ErrorUser,
   NoAuthenticate,
   UserActionTypes
 } from "./user.action";
@@ -25,6 +25,7 @@ export class UserEffect {
     private accessservice: AccessService,
     private userservice: UserService,
     private refreshservice: RefreshService,
+    private socketservice: SocketService,
     private store: Store,
     private actions: Actions
   ) {
@@ -38,7 +39,13 @@ export class UserEffect {
       return this.accessservice
         .access(action).pipe(
           map(
-            (user: UserModel) => CompleteStateUser(user)
+            (user: UserModel) => {
+              /*
+              * Here we then make our socket connection */
+              this.socketservice.init();
+
+              return CompleteStateUser(user)
+            }
           ),
           catchError(error => of(ErrorUser(error)))
         );
@@ -61,6 +68,10 @@ export class UserEffect {
       map(
         (user: UserModel) => {
           if(user) {
+            /*
+            * Here we then make our socket connection */
+            this.socketservice.init();
+
             return CompleteStateUser(user);
           }
           return NoAuthenticate();
@@ -91,7 +102,13 @@ export class UserEffect {
         mergeMap((user) => this.refreshservice
           .refresh(user?.token).pipe(
             map(
-              () => CompleteUser()
+              () => {
+                /*
+                * Here we then make our socket connection */
+                this.socketservice.init();
+
+                return CompleteUser()
+              }
             ),
             catchError(error => of(ErrorUser(error)))
           )
@@ -119,5 +136,23 @@ export class UserEffect {
         map((response: Response) => CompleteGetUsers({ users: response.payload.page, length: response.payload.length })),
         catchError(error => of(ErrorUser(error)))
       )),
+  ));
+
+  update = createEffect(() => this.actions.pipe(
+    ofType(UserActionTypes.UpdateUser),
+    mergeMap((action: Partial<UserModel>) => this.userservice.update(action as UserModel)
+      .pipe(
+        map((response: Response) => CompleteUpdateUser(response.payload)),
+        catchError(error => of(ErrorUser(error)))
+      ))
+  ));
+
+  delete = createEffect(() => this.actions.pipe(
+    ofType(UserActionTypes.RemoveUser),
+    mergeMap((action: Partial<UserModel>) => this.userservice.delete(action as UserModel)
+      .pipe(
+        map((response: Response) => CompleteRemoveUser(response.payload)),
+        catchError(error => of(ErrorUser(error)))
+      ))
   ));
 }

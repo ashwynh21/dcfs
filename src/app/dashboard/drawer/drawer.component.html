@@ -3,11 +3,10 @@
   <!--
   We have two sections of content one for the main menu...
   -->
-  <app-menu icon="support_agent" name="Debt Counsellors" [expanded]="toggle">
+  <app-menu icon="support_agent" name="Debt Counsellors" [expanded]="toggle" [routerLink]="['counsellors']">
     <app-item [expanded]="toggle" icon="history">Counsellor Activity</app-item>
   </app-menu>
   <app-menu icon="work_outline" name="Client Management" [expanded]="toggle" [routerLink]="['clients']">
-    <app-item [expanded]="toggle" icon="person_outline">All Clients</app-item>
     <app-item [expanded]="toggle" icon="analytics_outline">Client Analytics</app-item>
   </app-menu>
   <!--

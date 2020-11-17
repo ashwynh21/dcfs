@@ -1,7 +1,14 @@
 import { Injectable } from "@angular/core";
 import { ClientService } from "../../services/client.service";
 import { Actions, createEffect, ofType } from "@ngrx/effects";
-import { ClientActionTypes, CompleteClients, CompleteCreateClient, ErrorClients } from "./client.action";
+import {
+  ClientActionTypes,
+  CompleteClients,
+  CompleteCreateClient,
+  CompleteRemoveClient,
+  CompleteUpdateClient,
+  ErrorClients
+} from "./client.action";
 import { catchError, exhaustMap, map, mergeMap } from "rxjs/operators";
 import { Response } from "../../helpers/response";
 import { Store } from "@ngrx/store";
@@ -38,6 +45,28 @@ export class ClientEffect {
       return this.clientservice.create(action).pipe(
         map(
           (response: Response) => CompleteCreateClient(response.payload)
+        ),
+        catchError(error => of(ErrorClients(error)))
+      );
+    })
+  ));
+  update = createEffect(() => this.actions.pipe(
+    ofType(ClientActionTypes.UpdateClient),
+    exhaustMap((action) => {
+      return this.clientservice.update(action).pipe(
+        map(
+          (response: Response) => CompleteUpdateClient(response.payload)
+        ),
+        catchError(error => of(ErrorClients(error)))
+      );
+    })
+  ));
+  remove = createEffect(() => this.actions.pipe(
+    ofType(ClientActionTypes.RemoveClient),
+    exhaustMap((action) => {
+      return this.clientservice.delete(action).pipe(
+        map(
+          (response: Response) => CompleteRemoveClient(response.payload)
         ),
         catchError(error => of(ErrorClients(error)))
       );

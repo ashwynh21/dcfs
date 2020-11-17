@@ -41,4 +41,8 @@ export interface ClientModel extends Model {
     created: Date;
     updated: Date;
   }[];
+  /*
+   * To define the clients state in the debt counselling process
+   * */
+  state: string;
 }

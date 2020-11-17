@@ -27,6 +27,8 @@ import { MatMenuModule } from "@angular/material/menu";
 import { MatDividerModule } from "@angular/material/divider";
 import { EnrollComponent } from './land/enroll/enroll.component';
 import { MatTooltipModule } from "@angular/material/tooltip";
+import { MatSelectModule } from "@angular/material/select";
+import { MatRippleModule } from "@angular/material/core";
 
 @NgModule({
   declarations: [DashboardComponent, DrawerComponent, ToolbarComponent, ContentComponent, MenuComponent, ItemComponent, LandComponent, ProfileComponent, GeneralComponent, WelcomeComponent, CreateComponent, EnrollComponent],
@@ -44,7 +46,9 @@ import { MatTooltipModule } from "@angular/material/tooltip";
     MatDialogModule,
     MatMenuModule,
     MatDividerModule,
-    MatTooltipModule
+    MatTooltipModule,
+    MatSelectModule,
+    MatRippleModule
   ]
 })
 export class DashboardModule { }
