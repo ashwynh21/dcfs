@@ -1,0 +1,39 @@
+:host {
+  > div {
+    padding: 24px;
+    width: 100%;
+    height: 100%;
+  }
+}
+
+.summary {
+  width: 200%;
+  position: relative;
+
+  transition: left 256ms;
+  > div {
+    flex: 1;
+  }
+}
+.expense.row {
+  background: #F8F8F8;
+  border-radius: 8px;
+  cursor: pointer;
+
+  padding: 8px 12px;
+  margin: 8px 0;
+
+  > p {
+    margin: 0;
+  }
+  > mat-divider {
+    flex: 1;
+  }
+  > p:first-child {
+    margin-right: 16px;
+  }
+  > p:not(:first-child) {
+    flex: 1;
+    margin: 0 16px;
+  }
+}

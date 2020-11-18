@@ -78,10 +78,15 @@ export class ProfileComponent implements OnInit {
       'single.';
   }
   reschedule() {
-    this.dialog.open(ScheduleComponent, {
-      width: '68%',
-      height: '72%',
-    });
+    this.client.subscribe(client => {
+      this.dialog.open(ScheduleComponent, {
+        width: '68%',
+        height: '72%',
+        data: {
+          client
+        }
+      });
+    }).unsubscribe();
   }
   create() {
     this.dialog.open(CreateComponent, {

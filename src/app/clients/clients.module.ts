@@ -24,6 +24,7 @@ import { PersonalComponent } from './profile/personal/personal.component';
 import { ExpensesComponent } from './profile/expenses/expenses.component';
 import { ComittmentsComponent } from './profile/comittments/comittments.component';
 import { DeleteComponent } from "./delete/delete.component";
+import { MatButtonToggleModule } from "@angular/material/button-toggle";
 
 @NgModule({
   declarations: [ClientsComponent, ClientComponent, ProfileComponent, ScheduleComponent, PersonalComponent, ExpensesComponent, ComittmentsComponent, DeleteComponent],
@@ -42,7 +43,8 @@ import { DeleteComponent } from "./delete/delete.component";
     MatProgressSpinnerModule,
     MatDividerModule,
     MatMenuModule,
-    MatTooltipModule
+    MatTooltipModule,
+    MatButtonToggleModule
   ]
 })
 export class ClientsModule { }

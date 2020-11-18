@@ -1,1 +1,61 @@
-<p>schedule works!</p>
+
+<div>
+  <!--
+  Let us first display the current state of the client debts in an optional table and graph format...this meaning
+  that we will show a projection of the client debts schedule...as well as a summary of the client debs...
+  -->
+  <div class="tw-flex tw-justify-between tw-items-center">
+    <p class="mat-h2">Debts & Commitments Scheduling</p>
+  </div>
+
+  <div class="summary-container">
+    <!--
+    Here we need to have two DIV elements that will toggle between the chart and the summary, summary comes first...
+    -->
+    <div>
+      <div class="tw-flex tw-justify-between">
+        <p class="mat-h3">Current Debt Balance Summary & Projections</p>
+
+        <mat-button-toggle-group #toggler="matButtonToggleGroup" value="summary">
+          <mat-button-toggle value="summary" matTooltip="Debts Summary, showing the general outline of each debt and how long it will take to complete.">
+            <mat-icon color="primary">subject</mat-icon>
+          </mat-button-toggle>
+          <mat-button-toggle value="graph" matTooltip="Debts Project, depicting indebtedness over the time period of the debt duration.">
+            <mat-icon color="primary">leaderboard</mat-icon>
+          </mat-button-toggle>
+        </mat-button-toggle-group>
+      </div>
+
+      <div class="tw-w-full tw-overflow-x-hidden">
+        <div class="tw-flex summary" [ngStyle]="{left: (toggler.value == 'summary') ? '0' : '-100%'}">
+          <!--
+          So first we will have the summary...
+          -->
+          <div class="tw-flex tw-mt-4">
+            <div class="tw-w-3/5">
+              <div *ngFor="let debt of (data.client).debts" class="tw-flex tw-justify-between tw-items-center row expense" matRipple>
+
+                <p class="mat-h3">{{debt.name}}</p>
+                <mat-divider></mat-divider>
+                <p><strong>{{debt.outstanding | currency: 'E'}}</strong></p>
+                <p><strong>{{debt.monthly | currency: 'E'}}</strong></p>
+                <p><strong>{{duration(debt)}} months</strong></p>
+              </div>
+            </div>
+            <div class="tw-w-2/5">
+              <p>
+
+              </p>
+            </div>
+          </div>
+          <!--
+          Then we will have the chart of the application...
+          -->
+          <div>
+            <canvas #chart></canvas>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
