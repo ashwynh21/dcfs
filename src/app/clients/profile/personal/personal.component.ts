@@ -2,9 +2,10 @@ import { Component, Inject, OnInit } from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { MAT_DIALOG_DATA, MatDialogRef } from "@angular/material/dialog";
 import { Store } from "@ngrx/store";
-import { SelectErrorClient, SelectLoadingClient, UpdateClient } from "../../../store/clients";
+import { CreateClient, SelectErrorClient, SelectLoadingClient, UpdateClient } from "../../../store/clients";
 import { Observable } from "rxjs";
 import { ClientModel } from "../../../models/client.model";
+import { SelectCounsellor } from "../../../store/counsellor";
 
 @Component({
   selector: 'app-personal',
@@ -16,6 +17,7 @@ export class PersonalComponent implements OnInit {
   error: Observable<Error>;
 
   bio: FormGroup;
+  income: FormGroup;
 
   constructor(private dialog: MatDialogRef<PersonalComponent>,
               private store: Store,
@@ -43,6 +45,20 @@ export class PersonalComponent implements OnInit {
         dependents: [this.data.client.marital?.dependents]
       }),
     });
+    this.income = this.builder.group({
+      employment: this.builder.group({
+        name: [this.data.client.employment.name, [Validators.required]],
+        postal: this.builder.group({
+          address: [this.data.client.employment.postal.address],
+          code: [this.data.client.employment.postal.code]
+        })
+      }),
+      income: this.builder.group({
+        statement: [this.data.client.income.statement, [Validators.required]],
+        gross: [this.data.client.income.gross, [Validators.required]],
+        deductions: [this.data.client.income.deductions, [Validators.required]],
+      }),
+    });
     this.loading = this.store.select(SelectLoadingClient);
     this.error = this.store.select(SelectErrorClient);
   }
@@ -50,6 +66,8 @@ export class PersonalComponent implements OnInit {
   submit() {
     this.store.dispatch(UpdateClient({
       ...this.bio.getRawValue(),
+      ...this.income.getRawValue(),
+      updated: new Date(),
       _id: this.data.client._id
     }));
 
@@ -59,4 +77,15 @@ export class PersonalComponent implements OnInit {
       }
     })
   }
+
+
+  upload({ target }: Event) {
+    const reader = new FileReader();
+
+    reader.onload = ({target: {result}}) => {
+      this.income.get('income').get('statement').setValue(result);
+    }
+    reader.readAsDataURL((target as HTMLInputElement).files[0]);
+  }
+
 }

@@ -50,6 +50,12 @@ export class ComittmentsComponent implements OnInit {
       })
     );
   }
+  totalexpenses() {
+    return this.data.client.expenses.reduce((a, e) => Number(a) + Number(e.amount), 0);
+  }
+  totaldebts() {
+    return this.data.client.debts.reduce((a, e) => Number(a) + Number(e.monthly), 0);
+  }
   removedebt(index) {
     (this.debts.controls['debts']['controls'] as Array<FormGroup>).splice(index, 1);
   }
@@ -64,5 +70,13 @@ export class ComittmentsComponent implements OnInit {
         this.dialog.close();
       }
     })
+  }
+  remainder() {
+    const client = this.data.client;
+    const nett = Number(client.income.gross) - Number(client.income.deductions);
+    const debts = this.debts.getRawValue().debts.reduce((a, e) => Number(a) + Number(e.monthly), 0);
+    const expenses = this.data.client.expenses.reduce((a, d) => a + d.amount, 0);
+
+    return nett - expenses - debts;
   }
 }

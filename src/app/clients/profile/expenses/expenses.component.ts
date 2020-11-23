@@ -62,6 +62,9 @@ export class ExpensesComponent implements OnInit {
   totaldebts() {
     return this.data.client.debts.reduce((a, e) => Number(a) + Number(e.monthly), 0);
   }
+  totalexpenses() {
+    return this.data.client.expenses.reduce((a, e) => Number(a) + Number(e.amount), 0);
+  }
 
   remainder() {
     const client = this.data.client;

@@ -12,21 +12,39 @@
         </mat-form-field>
         <mat-form-field class="tw-mx-4 small" appearance="outline">
           <mat-label>Account</mat-label>
-          <input class="tw-w-32" matInput required [formControl]="section.get('account')" />
+          <input class="tw-w-32" matInput required [formControl]="section.get('account')"/>
         </mat-form-field>
         <mat-form-field appearance="outline" class="small">
           <mat-label>Outstanding</mat-label>
-          <input matInput required [formControl]="section.get('outstanding')" />
+          <input matInput required [formControl]="section.get('outstanding')" type="number" />
         </mat-form-field>
         <mat-form-field class="tw-mx-4 small" appearance="outline">
           <mat-label>Monthly</mat-label>
-          <input matInput required [formControl]="section.get('monthly')" />
+          <input matInput required [formControl]="section.get('monthly')"  type="number" />
         </mat-form-field>
         <button class="button" *ngIf="debts.controls['debts']['controls'].indexOf(section) == debts.controls['debts']['controls'].length - 1" mat-icon-button (click)="adddebt()"><mat-icon color="primary">add</mat-icon></button>
         <button class="button" *ngIf="debts.controls['debts']['controls'].indexOf(section) != debts.controls['debts']['controls'].length - 1" mat-icon-button (click)="removedebt(debts.controls['debts']['controls'].indexOf(section))"><mat-icon color="warn">delete</mat-icon></button>
       </div>
     </div>
-    <div class="tw-flex-1"></div>
+    <div class="tw-flex tw-justify-center tw-items-center tw-flex-1 tw-flex-col deductions">
+      <!--
+      Here we need to display the money available
+      -->
+      <div class="tw-flex tw-justify-center tw-items-center income">
+        <button mat-button>Income Statement <mat-icon>get_app</mat-icon></button>
+      </div>
+      <p>Gross Income is <strong>{{data.client.income.gross | currency: 'E'}}</strong>, with statutory deductions of <strong>{{data.client.income.deductions | currency: 'E'}}</strong> and total debt of <strong>{{ totalexpenses() | currency: 'E' }}</strong>.</p>
+
+      <p>Total Debts:</p>
+      <p class="available">{{totaldebts() | currency: 'E'}}</p>
+
+      <p>Current Available amount:</p>
+      <p class="available">{{remainder() | currency: 'E'}}</p>
+      <p>(This after deductions of; Deductions, Total Expenses, and Debts.)</p>
+      <p>
+        <mat-icon color="primary" matTooltip="The goal for optimizing expenses is to maximize the available funds so as to allow room for re-scheduling of debts.">help_outline</mat-icon>
+      </p>
+    </div>
   </div>
 
   <div class="tw-flex tw-justify-between">

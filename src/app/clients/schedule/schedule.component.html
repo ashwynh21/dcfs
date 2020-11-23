@@ -16,7 +16,7 @@
       <div class="tw-flex tw-justify-between">
         <p class="mat-h3">Current Debt Balance Summary & Projections</p>
 
-        <mat-button-toggle-group #toggler="matButtonToggleGroup" value="summary">
+        <mat-button-toggle-group #toggler="matButtonToggleGroup" value="graph">
           <mat-button-toggle value="summary" matTooltip="Debts Summary, showing the general outline of each debt and how long it will take to complete.">
             <mat-icon color="primary">subject</mat-icon>
           </mat-button-toggle>
@@ -26,8 +26,8 @@
         </mat-button-toggle-group>
       </div>
 
-      <div class="tw-w-full tw-overflow-x-hidden">
-        <div class="tw-flex summary" [ngStyle]="{left: (toggler.value == 'summary') ? '0' : '-100%'}">
+      <div class="tw-w-full tw-overflow-x-hidden tw-items-center">
+        <div class="tw-flex tw-items-center summary" [ngStyle]="{left: (toggler.value == 'summary') ? '0' : '-100%'}">
           <!--
           So first we will have the summary...
           -->
@@ -42,20 +42,105 @@
                 <p><strong>{{duration(debt)}} months</strong></p>
               </div>
             </div>
-            <div class="tw-w-2/5">
-              <p>
-
+            <div class="tw-w-2/5 tw-p-12 tw-flex tw-flex-col tw-justify-center tw-items-center">
+              <p class="instructions">
+                To properly schedule the client debts and commitments, please review the optimization methods available. Each method focuses on a described goal in order to deal with client resources to cover debts.
               </p>
+              <mat-icon color="primary">help_outline</mat-icon>
             </div>
           </div>
           <!--
           Then we will have the chart of the application...
           -->
-          <div>
-            <canvas #chart></canvas>
+          <div class="tw-flex tw-justify-center">
+            <div class="chart">
+              <canvas #chart></canvas>
+              <p class="note">Above is a depiction of the current payment projection under the initial schedule submission from the client.</p>
+            </div>
           </div>
         </div>
       </div>
+    </div>
+  </div>
+
+  <!--
+  So down here we will then get the user to select their optimization aglo and then further allow the user to make
+  customizations from there...
+  -->
+  <div class="tw-mt-4">
+    <p class="mat-h2">Debt Schedule Planning</p>
+
+    <div class="tw-flex tw-items-center">
+
+      <mat-button-toggle-group #algorithm="matButtonToggleGroup" value="max" class="tw-mr-4" (valueChange)="updatemonthly()">
+        <mat-button-toggle value="max" matTooltip="Maximize client funds against initial monthly commitment, re-allocate resources once one debt has been completed">
+          <mat-icon color="primary">trending_up</mat-icon>
+        </mat-button-toggle>
+        <mat-button-toggle value="time" matTooltip="Constrain all debts to complete at the same selected time.">
+          <mat-icon color="primary">alarm</mat-icon>
+        </mat-button-toggle>
+      </mat-button-toggle-group>
+
+      <p class="note">please select a scheduling method to re-schedule client debts against the available resources</p>
+    </div>
+
+    <div class="tw-flex tw-flex-col tw-justify-center tw-items-center">
+      <!--
+      Here we need to allow the user to alter some of the properties that the scheduling projector uses to generate its
+      data
+      -->
+      <form [formGroup]="monthly" class="tw-w-2/3 tw-my-8">
+        <div class="tw-flex tw-justify-between tw-items-center" *ngFor="let debt of monthly.controls['monthly']['controls']">
+          <div class="tw-flex tw-justify-between tw-items-center row expense" matRipple>
+
+            <p class="mat-h3">{{debt.get('name').value}}</p>
+            <p><strong>{{debt.get('outstanding').value | currency: 'E'}}</strong></p>
+            <p><strong>{{duration(debt.getRawValue())}} months</strong></p>
+          </div>
+          <mat-form-field class="tw-ml-8 payment" appearance="outline">
+            <mat-label>Monthly Payment</mat-label>
+            <input type="number" step="0.01" matInput [formControl]="debt.get('amount')"/>
+          </mat-form-field>
+        </div>
+      </form>
+
+      <div class="tw-flex tw-w-full">
+        <div class="tw-flex tw-justify-center tw-items-center tw-flex-1 tw-flex-col deductions">
+
+          <p>Current Available amount:</p>
+          <p class="available">{{remainder() | currency: 'E'}}</p>
+
+          <mat-checkbox *ngIf="algorithm.value === 'max'" class="tw-mt-8" color="primary" [formControl]="monthly.get('allocate')">Enable Resource Re-allocation</mat-checkbox>
+
+          <mat-datepicker #start></mat-datepicker>
+          <button mat-icon-button *ngIf="algorithm.value === 'time'" (click)="start.open()">
+            <mat-icon color="primary">event</mat-icon>
+          </button>
+          <input *ngIf="algorithm.value === 'time'" matInput [matDatepicker]="start" [formControl]="monthly.get('time')" class="date">
+        </div>
+
+        <div class="chart">
+          <canvas #schedule></canvas>
+        </div>
+      </div>
+      <p class="note">Above is a depiction of the current payment projection under the initial schedule submission from the client.</p>
+    </div>
+  </div>
+
+  <!--
+  Finally, down here we will add in the controllers for the final submission of the schedule...
+  -->
+  <div class="tw-flex tw-items-center tw-justify-between tw-mb-12">
+    <div class="tw-flex tw-items-center">
+      <mat-error *ngIf="error | async">{{(error | async).message}}</mat-error>
+      <mat-progress-spinner mode="indeterminate" diameter="24" *ngIf="loading | async"></mat-progress-spinner>
+    </div>
+
+    <div class="tw-flex tw-items-center controls">
+      <button mat-icon-button><mat-icon>get_app</mat-icon></button>
+      <button mat-icon-button><mat-icon>email</mat-icon></button>
+
+      <button mat-button>submit final schedule</button>
     </div>
   </div>
 </div>

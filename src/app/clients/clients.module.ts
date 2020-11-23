@@ -8,7 +8,7 @@ import { MatInputModule } from "@angular/material/input";
 import { MatCheckboxModule } from "@angular/material/checkbox";
 import { MatButtonModule } from "@angular/material/button";
 import { MatIconModule } from "@angular/material/icon";
-import { MatRippleModule } from "@angular/material/core";
+import { MatNativeDateModule, MatRippleModule } from "@angular/material/core";
 import { MatProgressSpinnerModule } from "@angular/material/progress-spinner";
 import { ClientsComponent } from './clients.component';
 import { RouterModule } from "@angular/router";
@@ -25,6 +25,7 @@ import { ExpensesComponent } from './profile/expenses/expenses.component';
 import { ComittmentsComponent } from './profile/comittments/comittments.component';
 import { DeleteComponent } from "./delete/delete.component";
 import { MatButtonToggleModule } from "@angular/material/button-toggle";
+import { MatDatepickerModule } from "@angular/material/datepicker";
 
 @NgModule({
   declarations: [ClientsComponent, ClientComponent, ProfileComponent, ScheduleComponent, PersonalComponent, ExpensesComponent, ComittmentsComponent, DeleteComponent],
@@ -44,7 +45,12 @@ import { MatButtonToggleModule } from "@angular/material/button-toggle";
     MatDividerModule,
     MatMenuModule,
     MatTooltipModule,
-    MatButtonToggleModule
-  ]
+    MatButtonToggleModule,
+    MatDatepickerModule,
+    MatNativeDateModule
+  ],
+  providers: [
+    MatDatepickerModule,
+  ],
 })
 export class ClientsModule { }

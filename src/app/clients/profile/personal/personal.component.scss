@@ -1,1 +1,21 @@
 @import '../../../dashboard/land/create/create.component.scss';
+
+.slider {
+  > div:first-child {
+    width: 200%;
+    position: absolute;
+
+    left: 0;
+    transition: left 256ms;
+
+    > div {
+      flex: 1;
+    }
+  }
+}
+.controller {
+  position: absolute;
+  left: 16px;
+  bottom: 0;
+  margin-bottom: 16px;
+}

@@ -1,3 +1,4 @@
+@import '../expenses/expenses.component.scss';
 
 :host {
   padding: 24px;
@@ -32,4 +33,18 @@
   font-size: 18pt;
   color: #455a64;
   font-weight: bold;
+}
+.flex-2 {
+  flex: 2
+}
+.debt {
+  > mat-form-field {
+    width: 160px;
+  }
+  > mat-form-field:nth-child(2) {
+    width: 112px;
+  }
+  > mat-form-field:nth-child(n + 3) {
+    width: 92px;
+  }
 }

@@ -24,9 +24,12 @@
       </div>
       <p>Gross Income is <strong>{{data.client.income.gross | currency: 'E'}}</strong>, with statutory deductions of <strong>{{data.client.income.deductions | currency: 'E'}}</strong> and total debt of <strong>{{ totaldebts() | currency: 'E' }}</strong>.</p>
 
-      <p>Current Available amount:</p>
-      <p class="available">{{remainder() | currency: 'E'}}</p>
-      <p>(This after deductions of; Deductions, Total Expenses, and Debts.)</p>
+      <p>Total Expenses:</p>
+      <p class="available">{{totalexpenses() | currency: 'E'}}</p>
+
+      <p>Current Available amount (Before Debts):</p>
+      <p class="available">{{(remainder() + totaldebts()) | currency: 'E'}}</p>
+
       <p>
         <mat-icon color="primary" matTooltip="The goal for optimizing expenses is to maximize the available funds so as to allow room for re-scheduling of debts.">help_outline</mat-icon>
       </p>

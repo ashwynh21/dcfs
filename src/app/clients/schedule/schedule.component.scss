@@ -1,3 +1,5 @@
+@import '../profile/expenses/expenses.component.scss';
+
 :host {
   > div {
     padding: 24px;
@@ -35,5 +37,49 @@
   > p:not(:first-child) {
     flex: 1;
     margin: 0 16px;
+  }
+}
+.chart {
+  width: 72%;
+}
+.instructions {
+  text-align: center;
+  color: #0008;
+
+}
+.note {
+  text-align: center;
+  font-size: 9pt;
+  color: #0008;
+
+  margin-top: 12px;
+  margin-bottom: 32px;
+}
+.available {
+  margin-top: 0 !important;
+}
+.payment {
+  margin-top: 20px;
+  height: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.expense {
+  height: min-content;
+}
+.no-display {
+  display: none;
+}
+.date {
+  width: min-content;
+  text-align: center;
+  margin-top: 24px;
+}
+.controls {
+  > button {
+    background: #455a64;
+    color: white;
+    margin: 0 4px;
   }
 }

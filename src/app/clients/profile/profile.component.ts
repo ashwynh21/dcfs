@@ -99,7 +99,7 @@ export class ProfileComponent implements OnInit {
       if(client) {
         this.dialog.open(PersonalComponent, {
           width: '64%',
-          height: '66%',
+          height: '68%',
           data: {
             client
           }
