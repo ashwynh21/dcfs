@@ -1,0 +1,58 @@
+
+<div>
+  <div class="tw-flex tw-justify-between tw-items-center">
+    <div class="tw-flex tw-items-center">
+      <mat-icon class="tw-mr-4 tw-mb-3" color="primary">settings</mat-icon>
+      <p class="mat-h1">Account Settings</p>
+    </div>
+  </div>
+  <mat-divider></mat-divider>
+</div>
+
+<!--
+We will require a place for the user to add the counselling organization logo and also the functionality that will allow
+the user to edit the counsellor organization information...
+-->
+<div class="tw-my-4">
+  <p class="mat-h2">Counsellor Profile & Information</p>
+
+  <form [formGroup]="profile">
+    <div class="tw-flex">
+      <mat-form-field appearance="outline">
+        <mat-label>Counsellor Name</mat-label>
+        <input matInput formControlName="name" />
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="tw-ml-4">
+        <mat-label>FSRA Registration</mat-label>
+        <input matInput formControlName="fsra"/>
+      </mat-form-field>
+    </div>
+  </form>
+</div>
+
+<!--
+Here we need to consider the settings that we are going to have for the platform...we will want that the user is
+able to change the organization interest rates so that the computation is done for interest...
+-->
+
+<div class="tw-mt-4">
+  <p class="mat-h2">Client Service Interest</p>
+
+  <p class="description">Client Service Interest refers to the service percentage fee charged as an addition to the debts the client
+  must pay to the debt counsellor.</p>
+
+  <form [formGroup]="interest">
+    <mat-form-field appearance="outline">
+      <mat-label>Client Interest (%)</mat-label>
+      <input matInput formControlName="interest" type="number" max="100" min="0"/>
+    </mat-form-field>
+  </form>
+</div>
+
+<div class="tw-flex tw-mt-4">
+  <button mat-button class="button" (click)="update()">update counsel</button>
+
+  <mat-error *ngIf="error | async">{{(error | async).message}}</mat-error>
+  <mat-progress-spinner mode="indeterminate" diameter="24" *ngIf="loading | async"></mat-progress-spinner>
+</div>

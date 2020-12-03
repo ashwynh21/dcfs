@@ -13,7 +13,7 @@
   And the other for the users personalization and profile management...
   -->
   <app-menu [user]="user | async" [expanded]="toggle">
-    <app-item [expanded]="toggle" icon="settings_outline">Account Settings</app-item>
+    <app-item [expanded]="toggle" icon="settings_outline" [routerLink]="['settings']">Account Settings</app-item>
     <app-item [expanded]="toggle" icon="help_outline">Help</app-item>
     <app-item [expanded]="toggle" icon="exit_to_app_outline" (click)="exit()">Sign Out</app-item>
   </app-menu>

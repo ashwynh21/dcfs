@@ -102,6 +102,10 @@
             <input type="number" step="0.01" matInput [formControl]="debt.get('amount')"/>
           </mat-form-field>
         </div>
+        <div class="tw-flex tw-justify-between counsellor" matRipple>
+          <p class="mat-h3">Counsellor's Fee (Monthly)</p>
+          <p class="mat-h3"><strong>{{this.percent | currency: 'E'}}</strong></p>
+        </div>
       </form>
 
       <div class="tw-flex tw-w-full">
@@ -137,8 +141,8 @@
     </div>
 
     <div class="tw-flex tw-items-center controls">
-      <button mat-icon-button><mat-icon>get_app</mat-icon></button>
-      <button mat-icon-button><mat-icon>email</mat-icon></button>
+      <button mat-icon-button (click)="download()"><mat-icon>get_app</mat-icon></button>
+      <button mat-icon-button (click)="showemail()"><mat-icon>email</mat-icon></button>
 
       <button mat-button>submit final schedule</button>
     </div>

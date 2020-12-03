@@ -1,6 +1,6 @@
 import { CounsellorModel } from "../../models/counsellor.model";
 import { createFeatureSelector, createReducer, createSelector, on } from "@ngrx/store";
-import { CompleteCounsellor, CreateCounsellor, ErrorCounsellor, GetCounsellor } from "./counsellor.action";
+import { CompleteCounsellor, CreateCounsellor, ErrorCounsellor, GetCounsellor, UpdateCounsellor } from "./counsellor.action";
 
 
 export interface CounsellorState {
@@ -23,6 +23,10 @@ const Reducer = createReducer<CounsellorState>(
   on(GetCounsellor, (state) => ({
     ...state,
     loading: true,
+  })),
+  on(UpdateCounsellor, (state) => ({
+    ...state,
+    loading: true
   })),
 
   on(CompleteCounsellor, (state, action) => ({

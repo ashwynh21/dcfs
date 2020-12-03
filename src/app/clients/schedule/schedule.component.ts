@@ -1,14 +1,17 @@
 import { AfterViewInit, Component, ElementRef, Inject, ViewChild } from "@angular/core";
-import { MAT_DIALOG_DATA } from "@angular/material/dialog";
+import { MAT_DIALOG_DATA, MatDialog } from "@angular/material/dialog";
 import { ClientModel } from "../../models/client.model";
-
-import moment from "moment";
+import { CounsellorModel } from "../../models/counsellor.model";
 
 import Chart, { ChartData, ChartOptions } from "chart.js";
 import { CurrencyPipe, DatePipe } from "@angular/common";
 import { FormArray, FormBuilder, FormGroup } from "@angular/forms";
 import { MatButtonToggleGroup } from "@angular/material/button-toggle";
 import { Observable } from "rxjs";
+
+import xlsx from 'xlsx';
+import moment from "moment";
+import { MailComponent } from "../mail/mail.component";
 
 @Component({
   selector: 'app-schedule',
@@ -23,18 +26,30 @@ export class ScheduleComponent implements AfterViewInit {
   chart: Chart;
   schedule: Chart;
   monthly: FormGroup;
+  percent: number;
+  available: number;
+  projection: any[];
 
   loading: Observable<boolean>;
   error: Observable<Error>;
 
   constructor(
     private builder: FormBuilder,
+    private dialog: MatDialog,
     @Inject(MAT_DIALOG_DATA) public data: {
       client?: ClientModel
+      counsellor?: CounsellorModel,
     }) {
 
-    const available = (this.data.client.income.gross - this.data.client.income.deductions)
+    this.available = (this.data.client.income.gross - this.data.client.income.deductions)
       - this.data.client.expenses.reduce((a, e) => Number(e.amount) + Number(a), 0);
+
+    this.percent = this.data.counsellor.interest * this.available / 100;
+
+    this.available -= this.percent;
+
+    /* We need to use the percentage to compute the counsellor payment. When the counsellor computes the total available amount from the
+    * client, the commission of the counsellor will be computed as the amount available from the client multiplied by the percentage*/
 
     this.monthly = builder.group({
       monthly: builder.array(
@@ -44,54 +59,49 @@ export class ScheduleComponent implements AfterViewInit {
               a[k] = [v];
               return a;
             }, {}),
-            amount: [(d.monthly / this.data.client.debts.reduce((a, d) => Number(a) + Number(d.monthly), 0) * available).toFixed(2)]
+            amount: [(d.monthly / this.data.client.debts.reduce((a, d) => Number(a) + Number(d.monthly), 0) * this.available).toFixed(2)]
           });
         })),
       allocate: [true],
       time: []
-      });
-  }
+    });
 
+  }
   ngAfterViewInit(): void {
     /*
     * We must subscribe the the date fields*/
     this.chartinit();
     this.scheduleinit();
   }
+
   updatemonthly() {
     let date = this.monthly.get('time').value;
     const debts = [...this.data.client.debts];
 
-    if(this.algorithm.value == 'time' && date) {
-
+    if(this.algorithm?.value == 'time' && date) {
       /* with the number of months we can compute the monthly installment needed to reach the target */
       let monthly = debts.map(d => (d.outstanding / (moment(date).diff(moment(d.created), 'months', true))).toFixed(2));
       /* then we update the form with the new monthly values...
-       * i = o / (s - c)
+      * i = o / (s - c)
       * */
-      (this.monthly['controls']['monthly']['controls'].forEach((c, i) => {
+      this.monthly['controls']['monthly']['controls'].forEach((c, i) => {
         if(monthly[i]) {
           c['controls']['amount'].setValue(monthly[i]);
         }
-      }))
-    } else if(this.algorithm.value == 'time' && !date) {
-
-      const available = (this.data.client.income.gross - this.data.client.income.deductions)
-        - this.data.client.expenses.reduce((a, e) => Number(e.amount) + Number(a), 0);
+      });
+    } else if(this.algorithm?.value == 'time' && !date) {
 
       const created = new Date(debts[0].created??(Date()));
 
-      date = moment(created).add(Math.ceil(debts.reduce((a, d) => Number(a) + Number(d.outstanding), 0) / available), 'months').toDate();
+      date = moment(created).add(Math.ceil(debts.reduce((a, d) => Number(a) + Number(d.outstanding), 0) / this.available), 'months').toDate();
       this.monthly.get('time').setValue(date);
 
-    } else if(this.algorithm.value == 'max'){
-      const available = (this.data.client.income.gross - this.data.client.income.deductions)
-        - this.data.client.expenses.reduce((a, e) => Number(e.amount) + Number(a), 0);
+    } else if(this.algorithm?.value == 'max'){
 
       (this.monthly['controls']['monthly']['controls'].forEach((c, i) => {
         if(debts[i]) {
           const d = debts[i];
-          c['controls']['amount'].setValue((d.monthly / this.data.client.debts.reduce((a, d) => Number(a) + Number(d.monthly), 0) * available).toFixed(2));
+          c['controls']['amount'].setValue((d.monthly / this.data.client.debts.reduce((a, d) => Number(a) + Number(d.monthly), 0) * this.available).toFixed(2));
         }
       }))
     }
@@ -268,8 +278,6 @@ export class ScheduleComponent implements AfterViewInit {
     * The goal for this graph will be to maximize the user resources according to the ratio in which they were shared in the initial schedule
     * */
     /* We need to compute the client available funds */
-    const available = (this.data.client.income.gross - this.data.client.income.deductions)
-    - this.data.client.expenses.reduce((a, e) => Number(e.amount) + Number(a), 0)
 
     /* Let us first get the new monthly payments.. */
     let monthly = (this.monthly.get('monthly') as FormArray).getRawValue().map(m => Number(m.amount));
@@ -286,19 +294,24 @@ export class ScheduleComponent implements AfterViewInit {
 
         if(balance > amount) {
           a.push({
+            ...d,
+            outstanding: Number(d.outstanding),
+            monthly: Number(d.monthly),
             account: d.account,
             balance: balance - amount,
-            payment: amount,
+            payment: Number(amount),
             name: d.name,
           });
         } else {
-
           if((balance) < 1) return a;
 
           a.push({
+            ...d,
+            outstanding: Number(d.outstanding),
+            monthly: Number(d.monthly),
             account: d.account,
             balance: 0,
-            payment: balance,
+            payment: Number(amount),
             name: d.name
           });
 
@@ -316,9 +329,9 @@ export class ScheduleComponent implements AfterViewInit {
             return b;
           }, []);
           if(this.monthly.get('allocate').value) {
-            monthly = debts.map(x => (x.monthly / debts.reduce((m, k) => Number(m) + Number(k.monthly), 0)) * available);
+            monthly = debts.map(x => (x.monthly / debts.reduce((m, k) => Number(m) + Number(k.monthly), 0)) * this.available);
           } else {
-            monthly = debts.map(x => (x.monthly / this.data.client.debts.reduce((m, k) => Number(m) + Number(k.monthly), 0)) * available)
+            monthly = debts.map(x => (x.monthly / this.data.client.debts.reduce((m, k) => Number(m) + Number(k.monthly), 0)) * this.available)
           }
         }
         return a;
@@ -326,6 +339,7 @@ export class ScheduleComponent implements AfterViewInit {
 
       i = i + 1;
     }
+    this.projection = projection;
 
     return this.remap(projection);
   }
@@ -351,6 +365,7 @@ export class ScheduleComponent implements AfterViewInit {
 
           if(balance > amount) {
             a.push({
+              ...d,
               account: d.account,
               balance: balance - amount,
               payment: amount,
@@ -361,6 +376,7 @@ export class ScheduleComponent implements AfterViewInit {
             if((balance) < 1) return a;
 
             a.push({
+              ...d,
               account: d.account,
               balance: 0,
               payment: balance,
@@ -387,10 +403,12 @@ export class ScheduleComponent implements AfterViewInit {
 
         i = i + 1;
       }
+
+      this.projection = projection;
+
       return this.remap(projection);
     }
   }
-
 
   duration(debt: Partial<{outstanding: number, amount: number, account: string}>) {
     const { data } = this.maximize().find((d) => d.account === debt.account);
@@ -403,6 +421,126 @@ export class ScheduleComponent implements AfterViewInit {
     const monthly = this.monthly.getRawValue().monthly.reduce((a, e) => Number(a) + Number(e.amount), 0);
     const expenses = this.data.client.expenses.reduce((a, d) => a + Number(d.amount), 0);
 
-    return nett - monthly - expenses;
+    return nett - monthly - expenses - this.percent;
+  }
+
+  download() {
+    const name = `${this.data.client.fullname} (${this.data.counsellor.name}) - ${moment(Date()).format('lll')}`;
+    xlsx.writeFile(this.writeworkbook(), `${name}.xlsx`, { bookType: 'xlsx', cellStyles: true, type: 'base64' });
+  }
+  writeworkbook(): xlsx.WorkBook {
+
+    /* This function will be used to respond to the download button for the schedule
+    * Here we need to get the schedule data from the graph computation as well as the
+    * graph itself and build the data into an excel file...
+    *
+    * For this to work we will need to ensure that the projection data is accessible
+    * from here.
+    * */
+
+    const workbook = xlsx.utils.book_new();
+
+    /*
+    * With the workbook made we then add the data in with a new spread sheet...
+    * the way we are going to create the file is with the html table system...
+    * we will format the table in html allowing us to create the appropriate
+    * structure for the system to work properly
+    * */
+    const table = document.createElement('table') as HTMLTableElement;
+    /* Now we add the header fields to the table...
+    * */
+    this.head(table);
+    this.content(table);
+
+    const spreadsheet = xlsx.utils.table_to_sheet(table);
+    xlsx.utils.book_append_sheet(workbook, spreadsheet, 'Debt Projection');
+
+    /* Then we write the file to the temp file and trigger the file download...
+    * */
+    return workbook;
+  }
+
+  /*
+  * Down here we will define functions that will help us create components for
+  * the table component that we want to export to excel...
+  * */
+  head(table: HTMLTableElement): HTMLTableSectionElement {
+    const names =  ['Account', 'Balance', 'Payment', 'Name', 'Outstanding', 'Monthly', 'Date'];
+    const head = table.createTHead();
+    const titles = head.insertRow(0);
+
+    names.map(name => {
+      const cell = titles.insertCell();
+      cell.innerText = name;
+
+      return cell;
+    });
+
+    head.insertRow(0).insertCell().colSpan = names.length;
+    Object.entries(this.data.client).forEach(([k, v], i) => {
+      if(typeof v == 'string' && (k !== '_id' && k !== 'counsellor')) {
+        const row = head.insertRow(0);
+        const cell = row.insertCell();
+
+        cell.setAttribute('style', 'background-color: #0001;');
+        cell.colSpan = names.length;
+
+        cell.setAttribute('style', `text-align: left; vertical-align: center; min-height: 128px;`);
+        cell.innerHTML = `${k[0].toUpperCase()}${k.substring(1)}: ${v}`;
+      }
+    });
+
+    return head;
+  }
+  content(table: HTMLTableElement): HTMLTableSectionElement {
+    const date = moment(new Date());
+    const body = table.createTBody();
+
+    this.projection.forEach((p, i) => {
+      date.add(i, 'month');
+
+      const rows = p.map(m => this.paymentrow(body.insertRow(), m));
+      const last = rows[0].insertCell();
+
+      last.rowSpan = rows.length;
+      last.innerText = date.format('lll');
+    });
+    this.graphimage(table);
+
+    return body;
+  }
+
+  paymentrow(row: HTMLTableRowElement, m) {
+    row.insertCell().innerHTML = m.account.toString();
+    row.insertCell().innerHTML = String(Number(m.balance).toFixed(2));
+    row.insertCell().innerHTML = String(Number(m.payment).toFixed(2));
+    row.insertCell().innerHTML = m.name;
+    row.insertCell().innerHTML = String(Number( m.outstanding).toFixed(2));
+    row.insertCell().innerHTML = String(Number(m.monthly).toFixed(2));
+
+    return row;
+  }
+  totalrow(table: HTMLTableElement) {
+    const row = table.insertRow();
+
+    row.insertCell().innerText = 'TOTALS';
+  }
+  graphimage(table: HTMLTableElement) {
+    const row = table.insertRow();
+    const cell = row.insertCell();
+
+    cell.innerHTML = `<img src="${this.schedule.canvas.toDataURL()}"/>`;
+  }
+
+  showemail() {
+    this.dialog.open(MailComponent,
+      {
+        data: {
+          projection: this.projection,
+          file: xlsx.write(this.writeworkbook(), { type: 'base64' }),
+          ...this.data,
+        },
+        width: '40%',
+      })
   }
 }

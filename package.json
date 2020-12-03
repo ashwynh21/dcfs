@@ -34,8 +34,11 @@
     "moment": "^2.29.1",
     "ngx-cookie-service": "^10.1.1",
     "ngx-socket-io": "^3.2.0",
+    "nodemailer": "^6.4.16",
     "rxjs": "~6.6.0",
+    "tempfile": "^3.0.0",
     "tslib": "^2.0.0",
+    "xlsx": "^0.16.9",
     "zone.js": "~0.10.2"
   },
   "devDependencies": {
@@ -48,6 +51,9 @@
     "@types/jasmine": "~3.5.0",
     "@types/jasminewd2": "~2.0.3",
     "@types/node": "^12.11.1",
+    "@types/nodemailer": "^6.4.0",
+    "@types/tempfile": "^3.0.0",
+    "@types/xlsx": "0.0.36",
     "@typescript-eslint/eslint-plugin": "^4.4.0",
     "@typescript-eslint/parser": "^4.4.0",
     "codelyzer": "^6.0.0",

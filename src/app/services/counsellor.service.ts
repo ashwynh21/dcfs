@@ -5,6 +5,7 @@ import { Observable } from "rxjs";
 import { Response } from "../helpers/response";
 import configuration from "../configurations/configuration.json";
 import { CounsellorModel } from "../models/counsellor.model";
+import { ClientModel } from "../models/client.model";
 
 @Injectable({
   providedIn: ServicesModule
@@ -24,6 +25,27 @@ export class CounsellorService {
 
   public create(data: CounsellorModel): Observable<Response> {
     return this.http.post(`${configuration.root}${this.name}`, data, {
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    });
+  }
+
+  public update(data: CounsellorModel): Observable<Response> {
+    return this.http.put(`${configuration.root}${this.name}`, data, {
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    });
+  }
+
+  public sendemails(data: {
+    emails: Array<{email: string, name: string}>,
+    file: String,
+    client: ClientModel,
+    counsellor: CounsellorModel
+  }): Observable<Response> {
+    return this.http.post(`${configuration.root}${this.name}/emails`, data, {
       headers: {
         'Content-Type': 'application/json'
       }

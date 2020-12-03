@@ -1,10 +1,9 @@
 import { Injectable } from "@angular/core";
-import { CounsellorService } from "../../services/counsellor.service";
 import { Actions, createEffect, ofType } from "@ngrx/effects";
 import { of } from "rxjs";
 import { catchError, map, mergeMap } from "rxjs/operators";
 import { CompleteCounsellor, CounsellorActionTypes, ErrorCounsellor } from "./counsellor.action";
-import { RefreshService } from "../../services";
+import { RefreshService, CounsellorService } from "../../services";
 import { Response } from "../../helpers/response";
 
 @Injectable()
@@ -32,5 +31,17 @@ export class CounsellorEffect {
         map((response: Response) => CompleteCounsellor(response.payload[0])),
         catchError(error => of(ErrorCounsellor(error)))
       )),
+  ));
+
+  update = createEffect(() => this.actions.pipe(
+    ofType(CounsellorActionTypes.UpdateCounsellor),
+    mergeMap((action) => {
+      return this.counsellorservice.update(action).pipe(
+        map(
+          (response: Response) => CompleteCounsellor(response.payload)
+        ),
+        catchError(error => of(ErrorCounsellor(error)))
+      )
+    })
   ));
 }

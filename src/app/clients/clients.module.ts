@@ -26,9 +26,10 @@ import { ComittmentsComponent } from './profile/comittments/comittments.componen
 import { DeleteComponent } from "./delete/delete.component";
 import { MatButtonToggleModule } from "@angular/material/button-toggle";
 import { MatDatepickerModule } from "@angular/material/datepicker";
+import { MailComponent } from './mail/mail.component';
 
 @NgModule({
-  declarations: [ClientsComponent, ClientComponent, ProfileComponent, ScheduleComponent, PersonalComponent, ExpensesComponent, ComittmentsComponent, DeleteComponent],
+  declarations: [ClientsComponent, ClientComponent, ProfileComponent, ScheduleComponent, PersonalComponent, ExpensesComponent, ComittmentsComponent, DeleteComponent, MailComponent],
   imports: [
     CommonModule,
     RouterModule.forChild(routes),

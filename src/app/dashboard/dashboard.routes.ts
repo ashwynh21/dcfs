@@ -28,6 +28,15 @@ export default [
             '../counsellors/counsellors.module'
             )
             .then(counsellors => counsellors.CounsellorsModule)
+      },
+      {
+        path: 'settings',
+        loadChildren: () =>
+          import(
+            /* webpackChunkName: "settings" */
+            '../settings/settings.module'
+            )
+            .then(settings => settings.SettingsModule)
       }
     ]
   },

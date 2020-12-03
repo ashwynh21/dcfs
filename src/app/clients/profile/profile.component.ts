@@ -14,6 +14,7 @@ import { PersonalComponent } from "./personal/personal.component";
 import { DeleteComponent } from "../delete/delete.component";
 import { ExpensesComponent } from "./expenses/expenses.component";
 import { ComittmentsComponent } from "./comittments/comittments.component";
+import { CounsellorModel } from "../../models/counsellor.model";
 
 @Component({
   selector: 'app-profile',
@@ -22,6 +23,7 @@ import { ComittmentsComponent } from "./comittments/comittments.component";
 })
 export class ProfileComponent implements OnInit {
   client: Observable<ClientModel>;
+  counsellor :Observable<CounsellorModel>;
 
   constructor(private route: ActivatedRoute,
               private dialog: MatDialog,
@@ -29,6 +31,7 @@ export class ProfileComponent implements OnInit {
     this.client = this.store.select(SelectClientList).pipe(
       map(clients => clients.find(c => c._id == route.snapshot.paramMap.get('id').toString()))
     );
+    this.counsellor = this.store.select(SelectCounsellor);
 
     combineLatest([this.store.select(SelectClientList), this.store.select(SelectCounsellor)])
       .subscribe(([clients, counsellor]) => {
@@ -78,12 +81,14 @@ export class ProfileComponent implements OnInit {
       'single.';
   }
   reschedule() {
-    this.client.subscribe(client => {
+    combineLatest([this.client, this.counsellor])
+    .subscribe(([client, counsellor]) => {
       this.dialog.open(ScheduleComponent, {
         width: '68%',
         height: '72%',
         data: {
-          client
+          client,
+          counsellor
         }
       });
     }).unsubscribe();

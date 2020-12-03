@@ -21,6 +21,7 @@ import { GuardsModule } from "./guards/guards.module";
 import { UserEffect } from "./store/user";
 import { ClientEffect } from "./store/clients";
 import { SocketIoConfig, SocketIoModule } from "ngx-socket-io";
+import { ToolsEffect } from "./store/tools";
 
 @NgModule({
   declarations: [
@@ -43,6 +44,7 @@ import { SocketIoConfig, SocketIoModule } from "ngx-socket-io";
       UserEffect,
       CounsellorEffect,
       ClientEffect,
+      ToolsEffect
     ]),
 
     RouterModule.forRoot(routes),

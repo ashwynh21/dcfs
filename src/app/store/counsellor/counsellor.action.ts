@@ -5,6 +5,8 @@ export enum CounsellorActionTypes {
   CreateCounsellor = '[Counsellor]: CreateCounsellor',
   CompleteCounsellor = '[Counsellor]: CompleteCounsellor',
   ErrorCounsellor = '[Counsellor]: ErrorCounsellor',
+
+  UpdateCounsellor = '[Counsellor]: UpdateCounsellor',
   /*
   * */
   GetCounsellor = '[Counsellor]: GetCounsellor',
@@ -14,6 +16,8 @@ export const CreateCounsellor = createAction(CounsellorActionTypes.CreateCounsel
   props<Partial<CounsellorModel>>());
 export const GetCounsellor = createAction(CounsellorActionTypes.GetCounsellor,
   props<{_id: string}>());
+export const UpdateCounsellor = createAction(CounsellorActionTypes.UpdateCounsellor,
+  props<Partial<CounsellorModel>>());
 
 export const CompleteCounsellor = createAction(CounsellorActionTypes.CompleteCounsellor,
   props<CounsellorModel>());

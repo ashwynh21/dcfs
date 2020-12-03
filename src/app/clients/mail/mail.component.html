@@ -1,0 +1,25 @@
+<div class="tw-p-8">
+  <p class="mat-h2">Forward Schedule to Mail List</p>
+
+  <p class="mat-h5">Please enter the email addresses of the recipients of this schedule. We will use the email address
+  that has been provided by DCF or one that you have configured in your settings.</p>
+
+  <div *ngFor="let mail of emails.controls['emails']['controls']">
+    <mat-form-field appearance="outline">
+      <mat-label>Name</mat-label>
+      <input matInput required [formControl]="mail.get('name')">
+    </mat-form-field>
+    <mat-form-field appearance="outline" class="tw-ml-4">
+      <mat-label>Email Address</mat-label>
+      <input matInput required type="email" [formControl]="mail.get('email')">
+    </mat-form-field>
+    <button class="button" *ngIf="emails.controls['emails']['controls'].indexOf(mail) == emails.controls['emails']['controls'].length - 1" mat-icon-button (click)="addmail()"><mat-icon color="primary">add</mat-icon></button>
+    <button class="button" *ngIf="emails.controls['emails']['controls'].indexOf(mail) != emails.controls['emails']['controls'].length - 1" mat-icon-button (click)="removemail(emails.controls['emails']['controls'].indexOf(mail))"><mat-icon color="warn">delete</mat-icon></button>
+  </div>
+
+  <div class="tw-flex tw-justify-between">
+    <button mat-button class="update" (click)="submit()">send emails</button>
+    <mat-error *ngIf="error | async">{{(error | async).message}}</mat-error>
+    <mat-progress-spinner mode="indeterminate" diameter="24" *ngIf="loading | async"></mat-progress-spinner>
+  </div>
+</div>

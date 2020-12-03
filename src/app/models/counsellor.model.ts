@@ -6,4 +6,6 @@ export interface CounsellorModel extends Model {
 
   physical: string;
   mobile: string;
+
+  interest: number;
 }
