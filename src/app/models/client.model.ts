@@ -7,7 +7,6 @@ export interface ClientModel extends Model {
   fullname: string;
   email: string;
   mobile: string;
-
   physical: string;
   postal: {
     address: string;
