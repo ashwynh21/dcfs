@@ -1,4 +1,4 @@
 {
-  "root": "http://45.77.239.227:4000/",
-  "socket": "http://45.77.239.227:4000/"
+  "root": "https://dcfsapi.herokuapp.com/",
+  "socket": "https://dcfsapi.herokuapp.com/"
 }
