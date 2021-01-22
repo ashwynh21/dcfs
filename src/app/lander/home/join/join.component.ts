@@ -26,7 +26,6 @@ export class JoinComponent implements OnInit {
   constructor(private builder: FormBuilder,
               private store: Store,
               private router: Router) {
-
     this.loading = merge(
       this.store.select(SelectLoadingUser),
       this.store.select(SelectLoadingCounsellor)
@@ -53,7 +52,7 @@ export class JoinComponent implements OnInit {
 
   ngOnInit(): void {
     const counsellorsubscription =  this.counsellor.subscribe(counsellor => {
-
+      console.log(counsellor);
       if(counsellor) {
         this.store.dispatch(CreateUser({
           username: this.signup.get('email').value,
