@@ -81,6 +81,9 @@
     color: white;
   }
 }
+.debt {
+  flex-wrap: wrap;
+}
 .expense:not(:last-child), .debt:not(:nth-last-child(2)) {
 
   > button {
